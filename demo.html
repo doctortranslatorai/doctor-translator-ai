@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Doctor Translator AI — Demo</title>
+<style>
+body{margin:0;font-family:Arial,sans-serif;background:#eef7ff;color:#0f172a}
+header{background:linear-gradient(135deg,#0f62fe,#38bdf8);color:white;padding:45px 20px;text-align:center}
+header h1{margin:0;font-size:38px}
+main{max-width:980px;margin:auto;padding:30px 18px}
+.card{background:white;border-radius:18px;padding:24px;margin:18px 0;box-shadow:0 8px 28px rgba(15,98,254,.12)}
+label{font-weight:bold;display:block;margin:14px 0 6px}
+select,textarea,input{width:100%;padding:13px;border:1px solid #cbd5e1;border-radius:10px;font-size:15px}
+button{background:#0f62fe;color:white;border:0;border-radius:10px;padding:14px 22px;font-weight:bold;margin-top:16px;cursor:pointer}
+.result{background:#f8fafc;border-left:5px solid #0f62fe;padding:18px;border-radius:12px;margin-top:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+.tag{display:inline-block;background:#dbeafe;color:#0f62fe;padding:6px 10px;border-radius:20px;margin:4px;font-size:13px}
+footer{text-align:center;padding:25px;background:#0f172a;color:white;font-size:14px}
+</style>
+</head>
+<body>
+<header>
+<h1>Doctor Translator AI</h1>
+<p>Demo visual — pré-atendimento multilingue para pacientes internacionais</p>
+</header>
+
+<main>
+<div class="card">
+<h2>1. Pedido do paciente</h2>
+<label>Idioma do paciente</label>
+<select id="lang"><option>Inglês</option><option>Francês</option><option>Espanhol</option><option>Português</option></select>
+<label>Mensagem do paciente</label>
+<textarea id="msg" rows="5">I have chest pain and I need a cardiology appointment as soon as possible.</textarea>
+<label>Contacto do paciente</label>
+<input id="contact" value="patient@email.com">
+<button onclick="generate()">Gerar resumo para a clínica</button>
+</div>
+
+<div class="card">
+<h2>2. Resultado simulado</h2>
+<div id="output" class="result">Preenche o pedido e clica em “Gerar resumo”.</div>
+</div>
+
+<div class="card">
+<h2>3. O que esta demo mostra</h2>
+<div class="grid">
+<div><span class="tag">Pré-atendimento</span><p>Organiza o primeiro contacto antes da marcação.</p></div>
+<div><span class="tag">Multilingue</span><p>Apoia pacientes estrangeiros, turistas e residentes internacionais.</p></div>
+<div><span class="tag">Resumo limpo</span><p>Entrega à equipa humana informação estruturada.</p></div>
+<div><span class="tag">Seguro</span><p>Não diagnostica nem substitui aconselhamento médico.</p></div>
+</div>
+</div>
+
+<div class="card">
+<h2>Limite de segurança</h2>
+<p>Esta demonstração é apenas conceptual. O Doctor Translator AI não fornece diagnóstico, não substitui aconselhamento médico e deve encaminhar casos urgentes para contacto telefónico, 112 ou serviço de urgência.</p>
+</div>
+</main>
+
+<footer>Doctor Translator AI — Pedro Figueiredo — doctortranslatorai@gmail.com</footer>
+
+<script>
+function generate(){
+const lang=document.getElementById('lang').value;
+const msg=document.getElementById('msg').value;
+const contact=document.getElementById('contact').value;
+let translated="Tenho dores no peito e preciso de uma consulta de cardiologia o mais rapidamente possível.";
+let specialty="Cardiologia";
+let priority="Alta — recomendar contacto telefónico/urgência se dor intensa, falta de ar ou agravamento.";
+let lower=msg.toLowerCase();
+if(lower.includes("dent")||lower.includes("tooth")){translated="Tenho dor dentária e preciso de uma consulta de medicina dentária.";specialty="Medicina Dentária";priority="Normal / Moderada";}
+if(lower.includes("skin")||lower.includes("rash")){translated="Tenho uma alteração na pele e gostaria de marcar uma consulta.";specialty="Dermatologia";priority="Normal";}
+document.getElementById('output').innerHTML=`<h3>Resumo para a equipa humana</h3><p><strong>Idioma original:</strong> ${lang}</p><p><strong>Mensagem original:</strong> ${msg}</p><p><strong>Tradução para português:</strong> ${translated}</p><p><strong>Especialidade provável:</strong> ${specialty}</p><p><strong>Prioridade sugerida:</strong> ${priority}</p><p><strong>Contacto:</strong> ${contact}</p><p><strong>Próximo passo:</strong> Encaminhar para equipa administrativa/triagem humana.</p>`;
+}
+</script>
+</body>
+</html>

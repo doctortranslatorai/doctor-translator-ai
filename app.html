@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Doctor Translator AI — Prototype</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #eef7ff;
+      color: #0f172a;
+    }
+    header {
+      background: linear-gradient(135deg, #0f62fe, #38bdf8);
+      color: white;
+      padding: 34px 20px;
+      text-align: center;
+    }
+    header h1 { margin: 0; font-size: 34px; }
+    header p { margin: 8px 0 0; font-size: 17px; }
+    main {
+      max-width: 1100px;
+      margin: auto;
+      padding: 24px 16px 50px;
+    }
+    .nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+    .nav a {
+      background: white;
+      color: #0f62fe;
+      text-decoration: none;
+      padding: 11px 15px;
+      border-radius: 10px;
+      font-weight: bold;
+      box-shadow: 0 4px 16px rgba(15,98,254,.08);
+    }
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+    @media (max-width: 850px) {
+      .layout { grid-template-columns: 1fr; }
+    }
+    .card {
+      background: white;
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: 0 8px 28px rgba(15,98,254,.12);
+    }
+    h2 { color: #0f62fe; margin-top: 0; }
+    label {
+      font-weight: bold;
+      display: block;
+      margin: 14px 0 6px;
+    }
+    select, textarea, input {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      font-size: 15px;
+    }
+    textarea { min-height: 120px; }
+    button {
+      background: #0f62fe;
+      color: white;
+      border: 0;
+      border-radius: 10px;
+      padding: 14px 22px;
+      font-weight: bold;
+      margin-top: 16px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 16px;
+    }
+    button:hover { opacity: .92; }
+    .result {
+      background: #f8fafc;
+      border-left: 5px solid #0f62fe;
+      padding: 16px;
+      border-radius: 12px;
+      margin-top: 12px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 18px;
+      font-size: 13px;
+      font-weight: bold;
+      margin: 3px;
+      background: #dbeafe;
+      color: #0f62fe;
+    }
+    .urgent {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+    .ok {
+      background: #dcfce7;
+      color: #166534;
+    }
+    .warning {
+      background: #fef3c7;
+      color: #92400e;
+    }
+    .note {
+      background: #e0f2fe;
+      border-left: 5px solid #0f62fe;
+      padding: 15px;
+      border-radius: 12px;
+      margin-top: 18px;
+    }
+    footer {
+      text-align: center;
+      padding: 24px;
+      background: #0f172a;
+      color: white;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Doctor Translator AI</h1>
+  <p>Protótipo Web — Pré-atendimento multilingue para pacientes internacionais</p>
+</header>
+
+<main>
+  <div class="nav">
+    <a href="index.html">← Página principal</a>
+    <a href="demo.html">Demo simples</a>
+    <a href="mailto:doctortranslatorai@gmail.com">Contactar</a>
+  </div>
+
+  <div class="layout">
+    <section class="card">
+      <h2>Paciente</h2>
+
+      <label for="language">Idioma do paciente</label>
+      <select id="language">
+        <option>Inglês</option>
+        <option>Francês</option>
+        <option>Espanhol</option>
+        <option>Português</option>
+      </select>
+
+      <label for="name">Nome do paciente</label>
+      <input id="name" value="John Smith" />
+
+      <label for="contact">Contacto</label>
+      <input id="contact" value="patient@email.com" />
+
+      <label for="message">Mensagem / pedido</label>
+      <textarea id="message">I have chest pain and I need a cardiology appointment as soon as possible.</textarea>
+
+      <button onclick="processRequest()">Gerar pré-atendimento</button>
+
+      <div class="note">
+        Esta área simula a entrada do paciente internacional antes da marcação.
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Resumo para a Clínica</h2>
+      <div id="clinicOutput" class="result">
+        Preenche o pedido do paciente e clica em “Gerar pré-atendimento”.
+      </div>
+    </section>
+  </div>
+
+  <section class="card" style="margin-top:18px;">
+    <h2>Painel Operacional Simulado</h2>
+    <div id="panelOutput" class="result">
+      Nenhum pedido processado ainda.
+    </div>
+  </section>
+
+  <section class="card" style="margin-top:18px;">
+    <h2>Limites de Segurança</h2>
+    <p>
+      Este protótipo é conceptual. O Doctor Translator AI não fornece diagnóstico,
+      não substitui aconselhamento médico e deve encaminhar casos urgentes para contacto telefónico,
+      112 ou serviço de urgência.
+    </p>
+  </section>
+</main>
+
+<footer>
+  Doctor Translator AI — Pedro Figueiredo — doctortranslatorai@gmail.com
+</footer>
+
+<script>
+function processRequest() {
+  const language = document.getElementById("language").value;
+  const name = document.getElementById("name").value;
+  const contact = document.getElementById("contact").value;
+  const message = document.getElementById("message").value;
+  const lower = message.toLowerCase();
+
+  let translation = "Tenho dores no peito e preciso de uma consulta de cardiologia o mais rapidamente possível.";
+  let specialty = "Cardiologia";
+  let priority = "Alta";
+  let badgeClass = "urgent";
+  let action = "Recomendar contacto telefónico imediato/triagem humana. Se houver dor intensa, falta de ar ou agravamento, encaminhar para urgência/112.";
+
+  if (lower.includes("tooth") || lower.includes("dent") || lower.includes("teeth")) {
+    translation = "Tenho dor dentária e preciso de uma consulta de medicina dentária.";
+    specialty = "Medicina Dentária";
+    priority = "Moderada";
+    badgeClass = "warning";
+    action = "Encaminhar para marcação em medicina dentária.";
+  }
+
+  if (lower.includes("skin") || lower.includes("rash") || lower.includes("allergy")) {
+    translation = "Tenho uma alteração na pele e gostaria de marcar uma consulta.";
+    specialty = "Dermatologia";
+    priority = "Normal";
+    badgeClass = "ok";
+    action = "Encaminhar para dermatologia ou medicina geral.";
+  }
+
+  if (lower.includes("fever") || lower.includes("temperature")) {
+    translation = "Tenho febre e preciso de orientação para saber se devo marcar consulta.";
+    specialty = "Medicina Geral";
+    priority = "Moderada";
+    badgeClass = "warning";
+    action = "Encaminhar para avaliação humana. Se houver agravamento, recomendar contacto urgente.";
+  }
+
+  if (lower.includes("pregnant") || lower.includes("pregnancy")) {
+    translation = "Estou grávida e preciso de orientação ou marcação de consulta.";
+    specialty = "Ginecologia / Obstetrícia";
+    priority = "A avaliar";
+    badgeClass = "warning";
+    action = "Encaminhar para equipa humana de ginecologia/obstetrícia.";
+  }
+
+  document.getElementById("clinicOutput").innerHTML = `
+    <span class="badge ${badgeClass}">Prioridade: ${priority}</span>
+    <span class="badge">Idioma: ${language}</span>
+    <span class="badge">Especialidade: ${specialty}</span>
+
+    <h3>Resumo estruturado</h3>
+    <p><strong>Paciente:</strong> ${name}</p>
+    <p><strong>Contacto:</strong> ${contact}</p>
+    <p><strong>Mensagem original:</strong> ${message}</p>
+    <p><strong>Tradução para português:</strong> ${translation}</p>
+    <p><strong>Ação sugerida:</strong> ${action}</p>
+    <p><em>Nota: informação para apoio administrativo/triagem humana. Não é diagnóstico.</em></p>
+  `;
+
+  const now = new Date().toLocaleString("pt-PT");
+
+  document.getElementById("panelOutput").innerHTML = `
+    <h3>Pedido recebido</h3>
+    <p><strong>Data:</strong> ${now}</p>
+    <p><strong>Estado:</strong> Novo pedido internacional</p>
+    <p><strong>Encaminhamento:</strong> ${specialty}</p>
+    <p><strong>Prioridade:</strong> ${priority}</p>
+    <p><strong>Próximo passo:</strong> Equipa humana deve analisar e contactar o paciente.</p>
+  `;
+}
+</script>
+
+</body>
+</html>

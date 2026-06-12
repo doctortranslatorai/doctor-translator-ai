@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Doctor Translator AI — Painel da Clínica</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #eef7ff;
+      color: #0f172a;
+    }
+
+    header {
+      background: linear-gradient(135deg, #0f62fe, #38bdf8);
+      color: white;
+      padding: 36px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 36px;
+    }
+
+    header p {
+      margin-top: 10px;
+      font-size: 17px;
+    }
+
+    main {
+      max-width: 1150px;
+      margin: auto;
+      padding: 28px 16px 50px;
+    }
+
+    .nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .nav a {
+      background: white;
+      color: #0f62fe;
+      text-decoration: none;
+      padding: 11px 15px;
+      border-radius: 10px;
+      font-weight: bold;
+      box-shadow: 0 4px 16px rgba(15, 98, 254, 0.08);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: 0 8px 28px rgba(15, 98, 254, 0.12);
+    }
+
+    .stat-card h3 {
+      margin: 0;
+      color: #0f62fe;
+      font-size: 16px;
+    }
+
+    .stat-card p {
+      font-size: 30px;
+      font-weight: bold;
+      margin: 10px 0 0;
+    }
+
+    .panel {
+      background: white;
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: 0 8px 28px rgba(15, 98, 254, 0.12);
+      overflow-x: auto;
+    }
+
+    h2 {
+      color: #0f62fe;
+      margin-top: 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 850px;
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: 14px;
+      border-bottom: 1px solid #e2e8f0;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f1f5f9;
+      color: #0f172a;
+      font-size: 14px;
+    }
+
+    td {
+      font-size: 14px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 18px;
+      font-size: 12px;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .alta {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    .moderada {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .normal {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .estado-novo {
+      background: #dbeafe;
+      color: #0f62fe;
+    }
+
+    .estado-analise {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .estado-contactado {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .note {
+      background: #e0f2fe;
+      border-left: 5px solid #0f62fe;
+      padding: 16px;
+      border-radius: 12px;
+      margin-top: 20px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      background: #0f172a;
+      color: white;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Doctor Translator AI</h1>
+  <p>Painel Simulado da Clínica — Pedidos Internacionais</p>
+</header>
+
+<main>
+
+  <div class="nav">
+    <a href="index.html">← Página principal</a>
+    <a href="app.html">Protótipo Web App</a>
+    <a href="demo.html">Demo simples</a>
+    <a href="mailto:doctortranslatorai@gmail.com">Contactar</a>
+  </div>
+
+  <section class="stats">
+    <div class="stat-card">
+      <h3>Pedidos recebidos</h3>
+      <p>12</p>
+    </div>
+
+    <div class="stat-card">
+      <h3>Alta prioridade</h3>
+      <p>3</p>
+    </div>
+
+    <div class="stat-card">
+      <h3>Idiomas ativos</h3>
+      <p>4</p>
+    </div>
+
+    <div class="stat-card">
+      <h3>Pedidos contactados</h3>
+      <p>5</p>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Pedidos Internacionais</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Paciente</th>
+          <th>Idioma</th>
+          <th>Pedido original</th>
+          <th>Resumo em português</th>
+          <th>Especialidade</th>
+          <th>Prioridade</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>John Smith</td>
+          <td>Inglês</td>
+          <td>I have chest pain and need a cardiology appointment.</td>
+          <td>Dor no peito. Pedido de consulta de cardiologia. Recomendar triagem humana rápida.</td>
+          <td>Cardiologia</td>
+          <td><span class="badge alta">Alta</span></td>
+          <td><span class="badge estado-novo">Novo</span></td>
+        </tr>
+
+        <tr>
+          <td>Marie Dupont</td>
+          <td>Francês</td>
+          <td>Je voudrais prendre rendez-vous pour une douleur dentaire.</td>
+          <td>Paciente pretende consulta por dor dentária.</td>
+          <td>Medicina Dentária</td>
+          <td><span class="badge moderada">Moderada</span></td>
+          <td><span class="badge estado-analise">Em análise</span></td>
+        </tr>
+
+        <tr>
+          <td>Carlos Méndez</td>
+          <td>Espanhol</td>
+          <td>Tengo fiebre y necesito saber si debo ir a consulta.</td>
+          <td>Paciente refere febre e pede orientação para marcação.</td>
+          <td>Medicina Geral</td>
+          <td><span class="badge moderada">Moderada</span></td>
+          <td><span class="badge estado-contactado">Contactado</span></td>
+        </tr>
+
+        <tr>
+          <td>Anna Müller</td>
+          <td>Inglês</td>
+          <td>I have a skin rash and would like to see a dermatologist.</td>
+          <td>Alteração na pele. Pedido de consulta de dermatologia.</td>
+          <td>Dermatologia</td>
+          <td><span class="badge normal">Normal</span></td>
+          <td><span class="badge estado-novo">Novo</span></td>
+        </tr>
+
+        <tr>
+          <td>Sophie Martin</td>
+          <td>Francês</td>
+          <td>Je suis enceinte et je cherche un rendez-vous médical.</td>
+          <td>Paciente grávida solicita marcação/encaminhamento.</td>
+          <td>Ginecologia / Obstetrícia</td>
+          <td><span class="badge moderada">A avaliar</span></td>
+          <td><span class="badge estado-analise">Em análise</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="note">
+    <strong>Nota de segurança:</strong>
+    este painel é apenas uma demonstração conceptual. O Doctor Translator AI não faz diagnósticos,
+    não substitui profissionais de saúde e deve encaminhar situações urgentes para contacto telefónico,
+    112 ou serviço de urgência.
+  </div>
+
+</main>
+
+<footer>
+  Doctor Translator AI — Pedro Figueiredo — doctortranslatorai@gmail.com
+</footer>
+
+</body>
+</html>

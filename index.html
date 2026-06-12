@@ -1,7 +1,131 @@
-<div style="margin-top:30px;">
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Doctor Translator AI</title>
 
-  <a class="btn"
-     href="mailto:doctortranslatorai@gmail.com?subject=Pedido%20de%20informação%20—%20Doctor%20Translator%20AI">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f7fbff;
+      color: #0f172a;
+    }
+
+    header {
+      background: linear-gradient(135deg, #0f62fe, #38bdf8);
+      color: white;
+      padding: 70px 22px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 42px;
+      margin: 0 0 12px;
+    }
+
+    header p {
+      font-size: 20px;
+      max-width: 760px;
+      margin: 0 auto 28px;
+    }
+
+    .btn {
+      display: inline-block;
+      background: white;
+      color: #0f62fe;
+      padding: 14px 24px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      margin: 6px;
+    }
+
+    .btn-blue {
+      background: #0f62fe;
+      color: white;
+    }
+
+    section {
+      max-width: 1050px;
+      margin: auto;
+      padding: 50px 22px;
+    }
+
+    h2 {
+      color: #0f62fe;
+      font-size: 30px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 24px;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(15, 98, 254, 0.08);
+    }
+
+    .steps {
+      counter-reset: step;
+    }
+
+    .step::before {
+      counter-increment: step;
+      content: counter(step);
+      background: #0f62fe;
+      color: white;
+      border-radius: 50%;
+      display: inline-flex;
+      width: 34px;
+      height: 34px;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+      font-weight: bold;
+    }
+
+    .contact-box {
+      background: white;
+      padding: 32px;
+      border-radius: 18px;
+      box-shadow: 0 8px 30px rgba(15, 98, 254, 0.10);
+      text-align: center;
+    }
+
+    .note {
+      background: #e0f2fe;
+      border-left: 5px solid #0f62fe;
+      padding: 18px;
+      border-radius: 10px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 28px;
+      background: #0f172a;
+      color: white;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Doctor Translator AI</h1>
+
+  <p>
+    <strong>When language fails, healthcare cannot wait.</strong><br>
+    Assistente de IA para pré-atendimento multilingue e futura tradução médica em tempo real.
+  </p>
+
+  <a class="btn" href="mailto:doctortranslatorai@gmail.com?subject=Pedido%20de%20informação%20—%20Doctor%20Translator%20AI">
     Contactar por email
   </a>
 
@@ -13,4 +137,101 @@
     Ver protótipo web app
   </a>
 
-</div>
+  <a class="btn" href="dashboard.html">
+    Ver painel da clínica
+  </a>
+</header>
+
+<section>
+  <h2>O Problema</h2>
+
+  <div class="grid">
+    <div class="card">Pacientes estrangeiros têm dificuldade em explicar sintomas e necessidades.</div>
+    <div class="card">Equipas administrativas recebem pedidos incompletos ou pouco claros.</div>
+    <div class="card">A barreira linguística pode prejudicar a experiência do paciente.</div>
+  </div>
+</section>
+
+<section>
+  <h2>A Solução</h2>
+
+  <p>
+    O Doctor Translator AI ajuda clínicas, hospitais e plataformas de telemedicina
+    a organizar o primeiro contacto com pacientes internacionais.
+  </p>
+
+  <div class="grid">
+    <div class="card">🌍 Pré-atendimento multilingue</div>
+    <div class="card">🩺 Contexto clínico controlado</div>
+    <div class="card">📄 Resumo automático para a equipa</div>
+    <div class="card">📨 Encaminhamento para marcação humana</div>
+  </div>
+</section>
+
+<section>
+  <h2>Como Funciona</h2>
+
+  <div class="steps">
+    <p class="step">O paciente entra em contacto no seu idioma.</p>
+    <p class="step">A IA recolhe informação básica e contexto do pedido.</p>
+    <p class="step">O sistema gera um resumo simples para a equipa humana.</p>
+    <p class="step">A clínica decide o próximo passo: contacto, marcação ou encaminhamento.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Para Quem</h2>
+
+  <div class="grid">
+    <div class="card">Hospitais privados</div>
+    <div class="card">Clínicas internacionais</div>
+    <div class="card">Telemedicina</div>
+    <div class="card">Turismo médico</div>
+    <div class="card">Análises e exames</div>
+    <div class="card">Seguradoras de saúde</div>
+  </div>
+</section>
+
+<section>
+  <h2>Limites de Segurança</h2>
+
+  <div class="note">
+    O Doctor Translator AI não substitui aconselhamento médico, diagnóstico ou decisão clínica.
+    A solução é pensada para pré-atendimento, organização inicial, comunicação multilingue
+    e encaminhamento para equipas humanas. Casos urgentes devem ser sempre encaminhados
+    para contacto telefónico, 112 ou serviço de urgência.
+  </div>
+</section>
+
+<section id="contacto">
+  <h2>Pedido de Demonstração / Piloto</h2>
+
+  <div class="contact-box">
+    <p>Para saber mais ou pedir uma demonstração, envie-nos um email.</p>
+
+    <a class="btn btn-blue" href="mailto:doctortranslatorai@gmail.com?subject=Pedido%20de%20informação%20—%20Doctor%20Translator%20AI">
+      Enviar email
+    </a>
+
+    <a class="btn btn-blue" href="demo.html">
+      Ver demonstração
+    </a>
+
+    <a class="btn btn-blue" href="app.html">
+      Ver protótipo web app
+    </a>
+
+    <a class="btn btn-blue" href="dashboard.html">
+      Ver painel da clínica
+    </a>
+
+    <p><strong>doctortranslatorai@gmail.com</strong></p>
+  </div>
+</section>
+
+<footer>
+  Doctor Translator AI — Pedro Figueiredo — Portugal — doctortranslatorai@gmail.com
+</footer>
+
+</body>
+</html>

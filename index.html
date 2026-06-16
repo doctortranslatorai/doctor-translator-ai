@@ -1,297 +1,747 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-PT">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Doctor Translator AI</title>
-
+  <title>Doctor Translator Network | Rede Médica com IA</title>
+  <meta name="description" content="Rede profissional para médicos, clínicas e equipas internacionais com tradução médica em tempo real por IA." />
   <style>
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f7fbff;
-      color: #0f172a;
-      line-height: 1.6;
+    :root{
+      --bg:#f4f8ff;
+      --card:#ffffff;
+      --ink:#0b1736;
+      --muted:#64708a;
+      --line:#dfe8f7;
+      --blue:#1768ff;
+      --blue2:#00b7ff;
+      --green:#11b981;
+      --orange:#ff7a1a;
+      --red:#ff3158;
+      --purple:#7a4dff;
+      --shadow:0 18px 45px rgba(22,68,140,.10);
+      --radius:24px;
     }
 
-    header {
-      background: linear-gradient(135deg, #0f62fe, #38bdf8);
-      color: white;
-      padding: 90px 22px;
-      text-align: center;
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(23,104,255,.13), transparent 28rem),
+        radial-gradient(circle at top right, rgba(0,183,255,.12), transparent 26rem),
+        var(--bg);
+      color:var(--ink);
+      min-height:100vh;
     }
 
-    header h1 {
-      font-size: 50px;
-      margin: 0 0 14px;
+    a{text-decoration:none;color:inherit}
+    button,input,textarea,select{font:inherit}
+    button{cursor:pointer;border:none;background:none}
+
+    .app{
+      display:grid;
+      grid-template-columns:280px minmax(0,1fr) 360px;
+      gap:22px;
+      max-width:1600px;
+      margin:0 auto;
+      padding:22px;
     }
 
-    header p {
-      font-size: 21px;
-      max-width: 840px;
-      margin: 0 auto 30px;
+    .topbar{
+      grid-column:1 / -1;
+      position:sticky;
+      top:0;
+      z-index:40;
+      display:grid;
+      grid-template-columns:280px minmax(280px,1fr) 360px;
+      gap:22px;
+      align-items:center;
+      padding:14px 0;
+      backdrop-filter:blur(18px);
+      background:rgba(244,248,255,.78);
     }
 
-    .btn {
-      display: inline-block;
-      background: white;
-      color: #0f62fe;
-      padding: 14px 24px;
-      border-radius: 12px;
-      text-decoration: none;
-      font-weight: bold;
-      margin: 6px;
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:0;
     }
 
-    .btn-blue {
-      background: #0f62fe;
-      color: white;
+    .logo{
+      width:54px;
+      height:54px;
+      display:grid;
+      place-items:center;
+      color:white;
+      border-radius:18px;
+      background:linear-gradient(135deg,var(--blue),var(--blue2));
+      box-shadow:0 12px 28px rgba(23,104,255,.28);
+      font-size:28px;
+      font-weight:900;
+      position:relative;
+      overflow:hidden;
     }
 
-    section {
-      max-width: 1120px;
-      margin: auto;
-      padding: 55px 22px;
+    .logo::after{
+      content:"";
+      position:absolute;
+      width:28px;
+      height:28px;
+      border-radius:50%;
+      background:rgba(255,255,255,.18);
+      bottom:-8px;
+      right:-5px;
     }
 
-    h2 {
-      color: #0f62fe;
-      font-size: 32px;
-      margin-top: 0;
+    .brand h1{font-size:22px;line-height:1.02;letter-spacing:-.04em}
+    .brand small{
+      display:inline-flex;
+      margin-left:4px;
+      padding:3px 7px;
+      border-radius:999px;
+      color:white;
+      background:var(--blue);
+      font-size:11px;
+      vertical-align:middle;
     }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 22px;
+    .search{
+      height:54px;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding:0 20px;
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:rgba(255,255,255,.9);
+      box-shadow:0 8px 24px rgba(22,68,140,.06);
+    }
+    .search span{color:var(--muted)}
+    .search input{width:100%;border:0;outline:0;background:transparent;color:var(--ink)}
+
+    .actions{
+      display:flex;
+      justify-content:flex-end;
+      align-items:center;
+      gap:10px;
+    }
+    .icon-btn{
+      width:46px;height:46px;
+      display:grid;place-items:center;
+      border-radius:16px;
+      background:var(--card);
+      border:1px solid var(--line);
+      color:var(--muted);
+      box-shadow:0 8px 20px rgba(22,68,140,.06);
+      position:relative;
+      transition:.2s ease;
+    }
+    .icon-btn:hover,.icon-btn.active{color:var(--blue);transform:translateY(-1px)}
+    .badge{
+      position:absolute;top:-7px;right:-6px;
+      min-width:22px;height:22px;
+      display:grid;place-items:center;
+      border-radius:99px;
+      background:var(--red);color:white;
+      font-size:12px;font-weight:800;
+      border:2px solid white;
+    }
+    .avatar{
+      width:48px;height:48px;border-radius:50%;
+      display:grid;place-items:center;
+      background:linear-gradient(135deg,#dceaff,#fff);
+      border:1px solid var(--line);
+      font-size:23px;
     }
 
-    .card {
-      background: white;
-      padding: 26px;
-      border-radius: 18px;
-      box-shadow: 0 10px 32px rgba(15, 98, 254, 0.10);
-      margin-bottom: 18px;
+    .sidebar,.rightbar{
+      position:sticky;
+      top:106px;
+      height:calc(100vh - 128px);
+      overflow:auto;
+      padding-right:2px;
+    }
+    .sidebar::-webkit-scrollbar,.rightbar::-webkit-scrollbar{width:0}
+
+    .panel{
+      background:rgba(255,255,255,.88);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
     }
 
-    .highlight {
-      background: #e0f2fe;
-      border-left: 5px solid #0f62fe;
-      padding: 22px;
-      border-radius: 14px;
+    .new-post-main{
+      width:100%;
+      height:54px;
+      display:flex;align-items:center;justify-content:center;gap:10px;
+      margin-bottom:18px;
+      border-radius:18px;
+      color:white;
+      background:linear-gradient(135deg,var(--blue),#0647cf);
+      box-shadow:0 14px 30px rgba(23,104,255,.25);
+      font-weight:800;
     }
 
-    .warning {
-      background: #fff7ed;
-      border-left: 5px solid #f97316;
-      padding: 22px;
-      border-radius: 14px;
+    .nav{padding:14px}
+    .nav a{
+      display:flex;align-items:center;gap:13px;
+      padding:14px 15px;
+      border-radius:16px;
+      color:#1a2848;
+      font-weight:700;
+      transition:.2s ease;
+      margin-bottom:3px;
+    }
+    .nav a:hover,.nav a.active{background:#eaf2ff;color:var(--blue)}
+    .nav .dot{
+      margin-left:auto;
+      min-width:22px;height:22px;
+      display:grid;place-items:center;
+      border-radius:50%;
+      color:white;background:var(--red);
+      font-size:12px;
     }
 
-    .steps p::before {
-      content: "✓ ";
-      color: #0f62fe;
-      font-weight: bold;
+    .profile-card{margin-top:18px;padding:18px;text-align:center}
+    .profile-card .big-avatar{
+      width:76px;height:76px;margin:0 auto 10px;border-radius:24px;
+      display:grid;place-items:center;font-size:34px;
+      background:linear-gradient(135deg,#eaf2ff,#fff);
+      border:1px solid var(--line);
     }
+    .profile-card h3{font-size:17px;margin-bottom:4px}
+    .profile-card p{font-size:13px;color:var(--muted);line-height:1.4}
+    .mini-link{display:inline-block;margin-top:12px;color:var(--blue);font-weight:800;font-size:14px}
 
-    footer {
-      text-align: center;
-      padding: 30px;
-      background: #0f172a;
-      color: white;
-      font-size: 14px;
+    .premium{margin-top:18px;padding:18px}
+    .premium h4{display:flex;gap:8px;align-items:center;margin-bottom:7px}
+    .premium p{font-size:14px;color:var(--muted);line-height:1.45;margin-bottom:14px}
+
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      min-height:44px;padding:0 18px;
+      border-radius:14px;
+      background:var(--blue);
+      color:white;
+      font-weight:800;
+      box-shadow:0 10px 24px rgba(23,104,255,.20);
+      transition:.2s ease;
     }
+    .btn:hover{transform:translateY(-1px);filter:saturate(1.08)}
+    .btn.ghost{background:#fff;color:var(--blue);border:1px solid #b7cbff;box-shadow:none}
+    .btn.green{background:var(--green);box-shadow:0 10px 24px rgba(17,185,129,.18)}
+    .btn.orange{background:var(--orange);box-shadow:0 10px 24px rgba(255,122,26,.18)}
+    .btn.block{width:100%}
+
+    main{min-width:0}
+    .hero{
+      padding:28px;
+      border-radius:30px;
+      background:
+        linear-gradient(135deg,rgba(6,23,64,.94),rgba(23,104,255,.88)),
+        radial-gradient(circle at right,rgba(0,183,255,.35),transparent 35%);
+      color:white;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      position:relative;
+      margin-bottom:22px;
+    }
+    .hero::after{
+      content:"";
+      position:absolute;
+      width:330px;height:330px;
+      border-radius:50%;
+      right:-120px;top:-120px;
+      background:rgba(255,255,255,.10);
+    }
+    .hero-content{position:relative;z-index:2;display:grid;grid-template-columns:1.35fr .65fr;gap:22px;align-items:center}
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:8px;
+      width:max-content;
+      padding:8px 12px;
+      border-radius:99px;
+      background:rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.18);
+      font-size:13px;font-weight:800;
+      margin-bottom:14px;
+    }
+    .hero h2{font-size:38px;line-height:1.02;letter-spacing:-.05em;max-width:780px;margin-bottom:14px}
+    .hero p{color:rgba(255,255,255,.82);font-size:16px;line-height:1.55;max-width:740px}
+    .hero-buttons{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
+    .hero .btn.ghost{background:rgba(255,255,255,.12);color:white;border-color:rgba(255,255,255,.25)}
+    .hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .stat{
+      padding:18px;
+      border-radius:22px;
+      background:rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.18);
+    }
+    .stat b{display:block;font-size:26px;letter-spacing:-.04em}
+    .stat span{font-size:12px;color:rgba(255,255,255,.74)}
+
+    .composer{padding:20px;margin-bottom:22px}
+    .composer-top{display:flex;gap:14px;align-items:flex-start}
+    .composer textarea{
+      width:100%;
+      min-height:76px;
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:15px;
+      resize:vertical;
+      outline:0;
+      background:#f8fbff;
+      color:var(--ink);
+    }
+    .composer-tools{
+      display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+      margin-top:14px;padding-top:14px;border-top:1px solid var(--line);
+    }
+    .tool{
+      display:flex;align-items:center;gap:8px;
+      padding:10px 12px;border-radius:13px;
+      color:#223154;font-weight:800;font-size:14px;
+      background:#f6f9ff;border:1px solid transparent;
+    }
+    .tool:hover{border-color:#cfe0ff;background:#fff}
+    .tool.publish{margin-left:auto;background:var(--blue);color:white;padding-inline:20px}
+
+    .stories{display:grid;grid-template-columns:repeat(5,minmax(120px,1fr));gap:12px;margin-bottom:22px}
+    .story{
+      padding:16px 10px;
+      text-align:center;
+      min-height:142px;
+      display:flex;flex-direction:column;justify-content:center;align-items:center;gap:10px;
+      border-radius:22px;
+      background:rgba(255,255,255,.88);
+      border:1px solid var(--line);
+      box-shadow:0 10px 24px rgba(22,68,140,.05);
+    }
+    .story-pic{
+      width:62px;height:62px;border-radius:22px;
+      display:grid;place-items:center;font-size:28px;
+      background:linear-gradient(135deg,#e9f2ff,#fff);
+      border:2px solid #78a8ff;
+    }
+    .story b{font-size:14px}.story span{font-size:12px;color:var(--muted)}
+
+    .feed-card{margin-bottom:22px;overflow:hidden}
+    .post-head{display:flex;align-items:flex-start;gap:12px;padding:20px 20px 0}
+    .post-avatar{width:54px;height:54px;border-radius:18px;display:grid;place-items:center;background:#edf5ff;border:1px solid var(--line);font-size:25px}
+    .post-meta{flex:1;min-width:0}
+    .post-meta h3{font-size:16px;display:flex;gap:6px;align-items:center}.verified{color:var(--blue);font-size:14px}
+    .post-meta p{font-size:13px;color:var(--muted);margin-top:2px}.more{color:var(--muted);font-size:22px}
+    .post-text{padding:16px 20px 14px;line-height:1.55}
+    .post-text h2{font-size:22px;letter-spacing:-.025em;margin-bottom:7px}
+    .tags{display:flex;gap:8px;flex-wrap:wrap;padding:0 20px 16px}
+    .tag{padding:7px 11px;background:#edf4ff;color:#184d9b;border-radius:999px;font-size:12px;font-weight:800}
+
+    .medical-visual{
+      margin:0 20px 16px;
+      min-height:250px;
+      border-radius:22px;
+      background:
+        linear-gradient(90deg,rgba(8,17,43,.96),rgba(12,45,95,.92)),
+        radial-gradient(circle at right,rgba(255,49,88,.35),transparent 30%);
+      color:white;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      align-items:center;
+      overflow:hidden;
+      position:relative;
+    }
+    .scan-copy{padding:30px;position:relative;z-index:2}
+    .scan-copy h3{font-size:27px;letter-spacing:-.04em;margin-bottom:9px}.scan-copy p{color:rgba(255,255,255,.75)}
+    .scan-metrics{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.metric{padding:12px 14px;border:1px solid rgba(255,255,255,.18);border-radius:15px;background:rgba(255,255,255,.08)}.metric b{display:block;font-size:20px}.metric span{font-size:12px;color:rgba(255,255,255,.72)}
+    .scan-area{height:100%;display:grid;place-items:center;position:relative;min-height:250px}
+    .brain{
+      width:190px;height:190px;border-radius:50%;
+      background:radial-gradient(circle at 45% 45%,#d8e5ff 0 18%,#8093b0 19% 38%,#142039 39% 41%,#3a4d70 42% 70%,#061126 71%);
+      border:7px solid rgba(255,255,255,.2);
+      box-shadow:0 0 0 24px rgba(255,255,255,.04),0 0 45px rgba(0,183,255,.22);
+      position:relative;
+    }
+    .brain::before{content:"";position:absolute;right:22px;top:54px;width:50px;height:50px;border-radius:50%;background:rgba(255,49,88,.8);box-shadow:0 0 30px rgba(255,49,88,.9)}
+    .brain::after{content:"";position:absolute;right:12px;top:44px;width:72px;height:72px;border:2px solid rgba(0,183,255,.9);border-radius:10px}
+
+    .post-actions{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 20px 18px;border-top:1px solid var(--line);color:#45516f}
+    .post-actions button{display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:12px;font-weight:800;color:#45516f}.post-actions button:hover{background:#f0f6ff;color:var(--blue)}
+    .reaction-line{display:flex;justify-content:space-between;align-items:center;padding:0 20px 12px;color:var(--muted);font-size:14px}
+
+    .translator-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:22px}
+    .translator-card{padding:20px}
+    .translator-card h2{font-size:22px;letter-spacing:-.03em;margin-bottom:8px}.translator-card p{color:var(--muted);line-height:1.5;font-size:14px;margin-bottom:14px}
+    .translator-box{border:1px solid var(--line);border-radius:18px;padding:14px;background:#f8fbff;margin-bottom:12px}
+    .translator-box label{display:block;font-size:12px;color:var(--muted);font-weight:800;margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em}
+    .translator-box textarea{width:100%;min-height:110px;border:0;outline:0;background:transparent;resize:vertical;color:var(--ink)}
+    .translator-output{min-height:110px;color:#20304f;line-height:1.55}
+    .select-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.select-row select{height:44px;border:1px solid var(--line);border-radius:14px;padding:0 12px;background:white;color:var(--ink);outline:0}.select-row .btn{margin-left:auto}
+
+    .section-title{display:flex;align-items:center;justify-content:space-between;margin:8px 0 14px}.section-title h2{font-size:22px;letter-spacing:-.03em}.section-title a{color:var(--blue);font-weight:800;font-size:14px}
+    .communities{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:22px}.community{padding:18px}.community-icon{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;font-size:24px;margin-bottom:12px;background:#eef6ff}.community h3{font-size:16px;margin-bottom:5px}.community p{font-size:13px;color:var(--muted);line-height:1.4;margin-bottom:13px}
+
+    .right-section{padding:18px;margin-bottom:16px}.right-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}.right-title h3{font-size:17px}.right-title a{font-size:13px;color:var(--blue);font-weight:800}
+    .person,.event,.community-row{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}.person:last-child,.event:last-child,.community-row:last-child{border-bottom:0}
+    .person-avatar,.comm-icon{width:46px;height:46px;border-radius:16px;display:grid;place-items:center;background:#eef6ff;font-size:22px;flex:0 0 auto}.person-info,.event-info{flex:1;min-width:0}.person-info b,.event-info b{font-size:14px}.person-info p,.event-info p{font-size:12px;color:var(--muted);line-height:1.35}.follow{padding:8px 12px;border-radius:12px;border:1px solid #b7cbff;color:var(--blue);font-weight:800;background:white}
+    .datebox{width:54px;height:54px;border-radius:16px;display:grid;place-items:center;background:#f2f6ff;color:var(--red);font-weight:900;line-height:1}.datebox small{display:block;color:var(--muted);font-size:11px;margin-top:3px}
+    .mini-ad{padding:20px;text-align:center}.mini-ad .logo{margin:0 auto 12px}.mini-ad p{color:var(--muted);font-size:14px;line-height:1.45;margin:8px 0 14px}
+
+    .modal{
+      position:fixed;inset:0;background:rgba(5,12,30,.58);
+      display:none;align-items:center;justify-content:center;padding:22px;z-index:100;
+    }
+    .modal.show{display:flex}.modal-card{width:min(620px,100%);background:white;border-radius:28px;box-shadow:0 30px 80px rgba(0,0,0,.25);overflow:hidden}.modal-head{display:flex;justify-content:space-between;align-items:center;padding:22px;border-bottom:1px solid var(--line)}.modal-body{padding:22px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:flex;flex-direction:column;gap:7px}.field.full{grid-column:1/-1}.field label{font-size:13px;color:var(--muted);font-weight:800}.field input,.field textarea{border:1px solid var(--line);border-radius:14px;padding:12px 13px;outline:0;background:#f8fbff}.field textarea{min-height:110px;resize:vertical}.modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:16px}
+
+    .toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);background:#0b1736;color:white;padding:14px 18px;border-radius:16px;box-shadow:0 20px 50px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:.25s ease;z-index:120;font-weight:800}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+    @media(max-width:1250px){.app{grid-template-columns:240px minmax(0,1fr)}.topbar{grid-template-columns:240px 1fr auto}.rightbar{display:none}.hero-content{grid-template-columns:1fr}.hero-stats{grid-template-columns:repeat(4,1fr)}}
+    @media(max-width:900px){.app{display:block;padding:14px}.topbar{grid-template-columns:1fr;gap:12px;position:relative}.actions{justify-content:flex-start;overflow:auto}.sidebar{position:relative;top:auto;height:auto;margin-bottom:18px}.nav{display:grid;grid-template-columns:1fr 1fr}.profile-card,.premium{display:none}.hero h2{font-size:31px}.stories{grid-template-columns:repeat(2,1fr)}.translator-grid,.communities{grid-template-columns:1fr}.medical-visual{grid-template-columns:1fr}.scan-area{display:none}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}}
+    @media(max-width:560px){.brand h1{font-size:20px}.search{height:50px}.hero{padding:22px}.hero h2{font-size:27px}.hero-stats{grid-template-columns:1fr 1fr}.composer-top{align-items:center}.composer .avatar{display:none}.composer-tools .tool.publish{width:100%;margin-left:0}.post-actions{display:grid;grid-template-columns:1fr 1fr}.stories{grid-template-columns:1fr 1fr}.nav{grid-template-columns:1fr}.topbar{padding-top:0}}
   </style>
 </head>
-
 <body>
+  <div class="app">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="Doctor Translator Network">
+        <div class="logo">+</div>
+        <div>
+          <h1>Doctor<br>Translator <small>AI</small></h1>
+        </div>
+      </a>
 
-<header>
-  <h1>Doctor Translator AI</h1>
+      <div class="search" role="search">
+        <span>⌕</span>
+        <input id="searchInput" type="search" placeholder="Pesquisar médicos, clínicas, casos, artigos..." />
+      </div>
 
-  <p>
-    <strong>When language fails, healthcare cannot wait.</strong><br>
-    Assistente de IA para pré-atendimento multilingue de pacientes internacionais.
-  </p>
+      <div class="actions">
+        <a class="icon-btn active" href="#feed" title="Feed">⌂</a>
+        <a class="icon-btn" href="#comunidades" title="Comunidades">👥</a>
+        <a class="icon-btn" href="#traducao" title="Tradução em direto">🌐</a>
+        <button class="icon-btn" title="Notificações">🔔<span class="badge">3</span></button>
+        <button class="icon-btn" title="Mensagens">💬</button>
+        <button class="avatar" title="Perfil">👨‍⚕️</button>
+      </div>
+    </header>
 
-  <a class="btn" href="mailto:doctortranslatorai@gmail.com?subject=Pedido%20de%20piloto%20gratuito%20—%20Doctor%20Translator%20AI">
-    Pedir piloto gratuito
-  </a>
+    <aside class="sidebar">
+      <button class="new-post-main" onclick="focusComposer()">＋ Nova publicação</button>
 
-  <a class="btn" href="app.html">Ver protótipo</a>
-  <a class="btn" href="dashboard.html">Ver painel da clínica</a>
-  <a class="btn" href="meeting.html">Página para reunião</a>
-  <a class="btn" href="apresentacao.pdf" target="_blank">Descarregar apresentação</a>
-</header>
+      <nav class="panel nav" aria-label="Menu principal">
+        <a class="active" href="#feed">🏠 Feed</a>
+        <a href="#traducao">🌐 Tradução em Direto</a>
+        <a href="#casos">🩺 Casos Clínicos</a>
+        <a href="#comunidades">👥 Comunidades</a>
+        <a href="#eventos">📅 Eventos</a>
+        <a href="apresentacao.pdf" target="_blank">📄 Apresentação PDF</a>
+        <a href="#reuniao" onclick="openModal(event)">🤝 Marcar reunião <span class="dot">!</span></a>
+      </nav>
 
-<section>
-  <h2>O problema</h2>
+      <div class="panel profile-card">
+        <div class="big-avatar">👨‍💼</div>
+        <h3>Pedro Figueiredo</h3>
+        <p>Founder at Doctor Translator AI<br>Real-Time Medical Translation</p>
+        <a class="mini-link" href="#top">Ver perfil</a>
+      </div>
 
-  <div class="grid">
-    <div class="card">Pacientes estrangeiros têm dificuldade em explicar sintomas e necessidades.</div>
-    <div class="card">Equipas administrativas recebem pedidos incompletos ou pouco claros.</div>
-    <div class="card">A barreira linguística atrasa marcações, triagem e encaminhamento.</div>
+      <div class="panel premium">
+        <h4>✨ Plano Profissional</h4>
+        <p>Acesso a tradução clínica, glossários médicos e reuniões internacionais com suporte IA.</p>
+        <a class="btn ghost block" href="#reuniao" onclick="openModal(event)">Pedir demonstração</a>
+      </div>
+    </aside>
+
+    <main id="top">
+      <section class="hero" id="feed">
+        <div class="hero-content">
+          <div>
+            <div class="eyebrow">⚕️ Rede médica internacional com IA</div>
+            <h2>Uma rede social profissional para saúde, tradução médica e colaboração clínica.</h2>
+            <p>O Doctor Translator Network junta médicos, clínicas, intérpretes, investigadores e equipas internacionais numa plataforma preparada para casos clínicos, eventos, formação e tradução em tempo real.</p>
+            <div class="hero-buttons">
+              <a class="btn green" href="#traducao">Testar tradução médica</a>
+              <a class="btn ghost" href="#reuniao" onclick="openModal(event)">Agendar demonstração</a>
+              <a class="btn ghost" href="apresentacao.pdf" target="_blank">Descarregar apresentação</a>
+            </div>
+          </div>
+          <div class="hero-stats">
+            <div class="stat"><b>24/7</b><span>apoio multilíngue</span></div>
+            <div class="stat"><b>12+</b><span>idiomas médicos</span></div>
+            <div class="stat"><b>3s</b><span>resposta simulada</span></div>
+            <div class="stat"><b>AI</b><span>tradução contextual</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel composer" aria-label="Criar publicação">
+        <div class="composer-top">
+          <div class="avatar">👨‍⚕️</div>
+          <textarea id="composerText" placeholder="Partilha uma atualização, caso clínico, artigo, pedido de colaboração ou experiência com tradução médica..."></textarea>
+        </div>
+        <div class="composer-tools">
+          <button class="tool">🖼️ Imagem</button>
+          <button class="tool">🎥 Vídeo</button>
+          <button class="tool">🩺 Caso Clínico</button>
+          <button class="tool">📚 Artigo</button>
+          <button class="tool publish" onclick="publishPost()">Publicar</button>
+        </div>
+      </section>
+
+      <section class="stories" aria-label="Destaques">
+        <div class="story"><div class="story-pic">＋</div><b>Criar story</b><span>Atualização rápida</span></div>
+        <div class="story"><div class="story-pic">👩‍⚕️</div><b>Dra. Ana Costa</b><span>Neurologia</span></div>
+        <div class="story"><div class="story-pic">👨‍⚕️</div><b>Dr. Rafael Lima</b><span>Ortopedia</span></div>
+        <div class="story"><div class="story-pic">🎙️</div><b>Med Talks</b><span>Comunidade</span></div>
+        <div class="story"><div class="story-pic">❤️</div><b>Cardio Insights</b><span>Comunidade</span></div>
+      </section>
+
+      <section id="postList">
+        <article class="panel feed-card" id="casos">
+          <div class="post-head">
+            <div class="post-avatar">👩‍⚕️</div>
+            <div class="post-meta">
+              <h3>Dra. Ana Costa <span class="verified">●</span></h3>
+              <p>Neurologista · 12 anos de experiência · 2 h · Público</p>
+            </div>
+            <button class="more">⋯</button>
+          </div>
+          <div class="post-text">
+            <h2>IA na deteção precoce do AVC: estudo multicêntrico com 15.000 pacientes</h2>
+            <p>Partilho com a comunidade os principais resultados sobre o uso de IA para apoio ao diagnóstico por imagem. O objetivo não é substituir profissionais, mas acelerar comunicação clínica e triagem internacional.</p>
+          </div>
+          <div class="tags">
+            <span class="tag">Neurologia</span><span class="tag">IA em Saúde</span><span class="tag">AVC</span><span class="tag">Diagnóstico por Imagem</span>
+          </div>
+          <div class="medical-visual">
+            <div class="scan-copy">
+              <h3>IA na deteção precoce do AVC</h3>
+              <p>Estudo multicêntrico com apoio de imagem médica e colaboração internacional.</p>
+              <div class="scan-metrics">
+                <div class="metric"><b>15.000</b><span>pacientes</span></div>
+                <div class="metric"><b>23</b><span>centros</span></div>
+                <div class="metric"><b>87%</b><span>precisão</span></div>
+              </div>
+            </div>
+            <div class="scan-area"><div class="brain"></div></div>
+          </div>
+          <div class="reaction-line"><span>👍 ❤️ 😮 128 reações</span><span>32 comentários · 15 partilhas</span></div>
+          <div class="post-actions">
+            <button onclick="likePost(this)">👍 Gosto</button>
+            <button>💬 Comentar</button>
+            <button>↗️ Partilhar</button>
+            <button>🔖 Guardar</button>
+          </div>
+        </article>
+      </section>
+
+      <section class="translator-grid" id="traducao">
+        <div class="panel translator-card">
+          <h2>Tradução médica em direto</h2>
+          <p>Demonstração visual para consultas, congressos, telemedicina e comunicação entre equipas clínicas internacionais.</p>
+          <div class="translator-box">
+            <label>Texto original</label>
+            <textarea id="sourceText">Paciente refere dor torácica há duas horas, com irradiação para o braço esquerdo e ligeira dificuldade respiratória.</textarea>
+          </div>
+          <div class="select-row">
+            <select id="targetLang">
+              <option value="en">Inglês médico</option>
+              <option value="es">Espanhol médico</option>
+              <option value="fr">Francês médico</option>
+            </select>
+            <button class="btn" onclick="translateDemo()">Traduzir agora</button>
+          </div>
+        </div>
+        <div class="panel translator-card">
+          <h2>Resultado traduzido</h2>
+          <p>Saída simulada para demonstração. Numa versão real, esta área seria ligada ao motor de tradução clínica.</p>
+          <div class="translator-box">
+            <label>Tradução</label>
+            <div class="translator-output" id="translatedText">Patient reports chest pain for two hours, radiating to the left arm, with mild shortness of breath.</div>
+          </div>
+          <button class="btn ghost block" onclick="copyTranslation()">Copiar tradução</button>
+        </div>
+      </section>
+
+      <section id="comunidades">
+        <div class="section-title">
+          <h2>Comunidades médicas</h2>
+          <a href="#reuniao" onclick="openModal(event)">Criar comunidade</a>
+        </div>
+        <div class="communities">
+          <article class="panel community">
+            <div class="community-icon">❤️</div>
+            <h3>Cardiologia em Foco</h3>
+            <p>Discussões clínicas, congressos, artigos e colaboração entre cardiologistas.</p>
+            <button class="btn ghost block">Entrar</button>
+          </article>
+          <article class="panel community">
+            <div class="community-icon">📘</div>
+            <h3>Medicina Baseada em Evidências</h3>
+            <p>Partilha de estudos, guidelines e aprendizagem científica aplicada.</p>
+            <button class="btn ghost block">Entrar</button>
+          </article>
+          <article class="panel community">
+            <div class="community-icon">🧠</div>
+            <h3>IA aplicada à Saúde</h3>
+            <p>Casos de uso, ferramentas, ética, automação e tradução médica por IA.</p>
+            <button class="btn ghost block">Entrar</button>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <aside class="rightbar">
+      <section class="panel right-section">
+        <div class="right-title"><h3>Pessoas que podes conhecer</h3><a href="#">Ver tudo</a></div>
+        <div class="person"><div class="person-avatar">👨‍⚕️</div><div class="person-info"><b>Dr. Lucas Mendes</b><p>Pneumologista<br>São Paulo, Brasil</p></div><button class="follow">Seguir</button></div>
+        <div class="person"><div class="person-avatar">👩‍⚕️</div><div class="person-info"><b>Dra. Mariana Alves</b><p>Endocrinologista<br>Porto, Portugal</p></div><button class="follow">Seguir</button></div>
+        <div class="person"><div class="person-avatar">👨‍⚕️</div><div class="person-info"><b>Dr. Tiago Fernandes</b><p>Cirurgião Geral<br>Lisboa, Portugal</p></div><button class="follow">Seguir</button></div>
+      </section>
+
+      <section class="panel right-section">
+        <div class="right-title"><h3>Comunidades em destaque</h3><a href="#comunidades">Ver tudo</a></div>
+        <div class="community-row"><div class="comm-icon">❤️</div><div class="person-info"><b>Cardiologia em Foco</b><p>12.8k membros</p></div><button class="follow">＋</button></div>
+        <div class="community-row"><div class="comm-icon">📘</div><div class="person-info"><b>Medicina Baseada em Evidências</b><p>24.3k membros</p></div><button class="follow">＋</button></div>
+        <div class="community-row"><div class="comm-icon">🧠</div><div class="person-info"><b>IA aplicada à Saúde</b><p>8.7k membros</p></div><button class="follow">＋</button></div>
+      </section>
+
+      <section class="panel right-section" id="eventos">
+        <div class="right-title"><h3>Próximos eventos</h3><a href="#">Ver tudo</a></div>
+        <div class="event"><div class="datebox">24<small>MAI</small></div><div class="event-info"><b>Webinar: Tradução médica em tempo real</b><p>24 Mai · 19:00 GMT+1 · 1.2k irão</p></div></div>
+        <div class="event"><div class="datebox">07<small>JUN</small></div><div class="event-info"><b>Congresso Internacional de Saúde Digital</b><p>07–09 Jun · Lisboa · 3.5k irão</p></div></div>
+      </section>
+
+      <section class="panel mini-ad">
+        <div class="logo">+</div>
+        <h3>Doctor Translator AI</h3>
+        <p>Traduz consultas, artigos, exames e reuniões clínicas em segundos com IA.</p>
+        <a class="btn" href="#reuniao" onclick="openModal(event)">Experimentar agora</a>
+      </section>
+    </aside>
   </div>
-</section>
 
-<section>
-  <h2>A solução</h2>
-
-  <p>
-    O Doctor Translator AI ajuda clínicas, hospitais, telemedicina, turismo médico e seguradoras
-    a organizar o primeiro contacto com pacientes internacionais, gerando um resumo estruturado
-    para a equipa humana.
-  </p>
-
-  <div class="grid">
-    <div class="card">🌍 Pré-atendimento multilingue</div>
-    <div class="card">📄 Resumo automático para a equipa</div>
-    <div class="card">🩺 Encaminhamento por especialidade provável</div>
-    <div class="card">📊 Painel simulado para gestão de pedidos</div>
-  </div>
-</section>
-
-<section>
-  <h2>Para quem é</h2>
-
-  <div class="grid">
-    <div class="card">Hospitais privados</div>
-    <div class="card">Clínicas internacionais</div>
-    <div class="card">Telemedicina</div>
-    <div class="card">Turismo médico</div>
-    <div class="card">Seguradoras de saúde</div>
-    <div class="card">Equipas de atendimento ao paciente</div>
-  </div>
-</section>
-
-<section>
-  <h2>Como funciona</h2>
-
-  <div class="card steps">
-    <p>O paciente comunica no seu idioma.</p>
-    <p>A plataforma organiza a informação inicial.</p>
-    <p>A equipa recebe um resumo estruturado em português.</p>
-    <p>A clínica decide o próximo passo: contacto, marcação ou triagem humana.</p>
-  </div>
-</section>
-
-<section>
-  <h2>Materiais disponíveis</h2>
-
-  <div class="grid">
-    <div class="card">
-      <h3>Protótipo Web App</h3>
-      <p>Simula a entrada do paciente, tradução e resumo estruturado.</p>
-      <a class="btn btn-blue" href="app.html">Abrir protótipo</a>
+  <div class="modal" id="meetingModal" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h2>Marcar demonstração</h2>
+        <button class="icon-btn" onclick="closeModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <p style="color:var(--muted);line-height:1.5;margin-bottom:16px">Deixa os dados da clínica/profissional para demonstração do Doctor Translator AI. Este formulário é visual; para produção, liga a Formspree, Google Forms ou Supabase.</p>
+        <div class="form-grid">
+          <div class="field"><label>Nome</label><input placeholder="Nome completo"></div>
+          <div class="field"><label>Email</label><input placeholder="email@clinica.pt"></div>
+          <div class="field"><label>Instituição</label><input placeholder="Clínica / Hospital / Empresa"></div>
+          <div class="field"><label>Tipo</label><input placeholder="Consulta, congresso, telemedicina..."></div>
+          <div class="field full"><label>Mensagem</label><textarea placeholder="Quero testar a tradução em direto para..."></textarea></div>
+        </div>
+        <div class="modal-actions">
+          <button class="btn ghost" onclick="closeModal()">Cancelar</button>
+          <button class="btn green" onclick="submitMeeting()">Enviar pedido</button>
+        </div>
+      </div>
     </div>
-
-    <div class="card">
-      <h3>Painel da Clínica</h3>
-      <p>Mostra pedidos, idioma, prioridade, especialidade e estado.</p>
-      <a class="btn btn-blue" href="dashboard.html">Abrir painel</a>
-    </div>
-
-    <div class="card">
-      <h3>Demo simples</h3>
-      <p>Demonstração conceptual rápida para reuniões e validação.</p>
-      <a class="btn btn-blue" href="demo.html">Abrir demo</a>
-    </div>
-
-    <div class="card">
-      <h3>Página para reunião</h3>
-      <p>Página rápida para apresentar o projeto em chamadas ou reuniões.</p>
-      <a class="btn btn-blue" href="meeting.html">Abrir página</a>
-    </div>
-
-    <div class="card">
-      <h3>Apresentação Pública</h3>
-      <p>Resumo público do projeto, problema, solução, protótipo e segurança clínica.</p>
-      <a class="btn btn-blue" href="apresentacao.pdf" target="_blank">Descarregar apresentação</a>
-    </div>
-  </div>
-</section>
-
-<section>
-  <h2>Clinical Safety First</h2>
-
-  <div class="warning">
-    O Doctor Translator AI é desenhado para apoiar equipas humanas, não para substituir decisão clínica.
-    Toda a informação deve ser validada por profissionais de saúde, com atenção especial a sinais de alarme,
-    consentimento informado, RGPD e segurança do doente.
-  </div>
-</section>
-
-<section>
-  <h2>Feedback de Profissionais de Saúde</h2>
-
-  <div class="card">
-    <p>
-      "O projeto apresenta potencial para reduzir barreiras linguísticas,
-      melhorar a documentação e apoiar a triagem, desde que exista validação
-      humana e foco na segurança do doente."
-    </p>
-
-    <p><strong>Profissional de Qualidade e Triagem — Portugal</strong></p>
   </div>
 
-  <div class="card">
-    <p>
-      "A IA ajuda no tempo, mas teremos sempre de validar clinicamente.
-      O potencial para apoio ao pré-atendimento é muito interessante."
-    </p>
+  <div class="toast" id="toast">Ação concluída.</div>
 
-    <p><strong>Profissional de Saúde — Feedback de validação</strong></p>
-  </div>
-</section>
+  <script>
+    const toast = document.getElementById('toast');
 
-<section>
-  <h2>Estado do projeto</h2>
+    function showToast(message){
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2600);
+    }
 
-  <div class="highlight">
-    O Doctor Translator AI encontra-se em fase de validação ativa com entidades de saúde,
-    telemedicina, turismo médico, consultoras, seguradoras e profissionais de saúde.
-    O objetivo é recolher feedback real e preparar um piloto gratuito adaptado às necessidades
-    de uma organização parceira.
-  </div>
-</section>
+    function focusComposer(){
+      document.getElementById('composerText').focus();
+      window.scrollTo({top: 260, behavior:'smooth'});
+    }
 
-<section>
-  <h2>Reuniões e Demonstrações</h2>
+    function publishPost(){
+      const text = document.getElementById('composerText').value.trim();
+      if(!text){ showToast('Escreve primeiro a publicação.'); return; }
+      const list = document.getElementById('postList');
+      const article = document.createElement('article');
+      article.className = 'panel feed-card';
+      article.innerHTML = `
+        <div class="post-head">
+          <div class="post-avatar">👨‍⚕️</div>
+          <div class="post-meta">
+            <h3>Pedro Figueiredo <span class="verified">●</span></h3>
+            <p>Founder at Doctor Translator AI · agora · Público</p>
+          </div>
+          <button class="more">⋯</button>
+        </div>
+        <div class="post-text">
+          <h2>Nova atualização da rede Doctor Translator</h2>
+          <p>${escapeHtml(text)}</p>
+        </div>
+        <div class="tags"><span class="tag">Doctor Translator AI</span><span class="tag">Saúde Digital</span><span class="tag">Tradução Médica</span></div>
+        <div class="reaction-line"><span>👍 0 reações</span><span>0 comentários · 0 partilhas</span></div>
+        <div class="post-actions"><button onclick="likePost(this)">👍 Gosto</button><button>💬 Comentar</button><button>↗️ Partilhar</button><button>🔖 Guardar</button></div>`;
+      list.prepend(article);
+      document.getElementById('composerText').value = '';
+      showToast('Publicação adicionada ao feed.');
+    }
 
-  <div class="highlight">
-    Atualmente estamos a realizar reuniões de validação com profissionais
-    de saúde, clínicas e entidades ligadas ao atendimento internacional.
-  </div>
+    function escapeHtml(str){
+      return str.replace(/[&<>'"]/g, tag => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[tag]));
+    }
 
-  <br>
+    function likePost(btn){
+      btn.textContent = '💙 Gostaste';
+      btn.style.color = 'var(--blue)';
+      showToast('Reação registada.');
+    }
 
-  <a class="btn btn-blue" href="meeting.html">
-    Abrir página de reunião
-  </a>
-</section>
+    function translateDemo(){
+      const lang = document.getElementById('targetLang').value;
+      const output = document.getElementById('translatedText');
+      const translations = {
+        en:'Patient reports chest pain for two hours, radiating to the left arm, with mild shortness of breath.',
+        es:'El paciente refiere dolor torácico desde hace dos horas, con irradiación al brazo izquierdo y ligera dificultad respiratoria.',
+        fr:'Le patient signale une douleur thoracique depuis deux heures, irradiant vers le bras gauche, avec une légère difficulté respiratoire.'
+      };
+      output.textContent = 'A traduzir contexto médico...';
+      setTimeout(() => {
+        output.textContent = translations[lang];
+        showToast('Tradução simulada concluída.');
+      }, 650);
+    }
 
-<section>
-  <h2>Pedir piloto gratuito</h2>
+    function copyTranslation(){
+      const text = document.getElementById('translatedText').textContent;
+      navigator.clipboard?.writeText(text);
+      showToast('Tradução copiada.');
+    }
 
-  <div class="card">
-    <p>
-      Se a sua organização recebe pacientes internacionais, turistas, expatriados ou clientes que não falam português,
-      podemos recolher feedback e avaliar um piloto gratuito adaptado à sua operação.
-    </p>
+    function openModal(event){
+      if(event) event.preventDefault();
+      document.getElementById('meetingModal').classList.add('show');
+      document.getElementById('meetingModal').setAttribute('aria-hidden','false');
+    }
+    function closeModal(){
+      document.getElementById('meetingModal').classList.remove('show');
+      document.getElementById('meetingModal').setAttribute('aria-hidden','true');
+    }
+    function submitMeeting(){
+      closeModal();
+      showToast('Pedido de reunião registado visualmente. Liga isto ao teu formulário real.');
+    }
 
-    <a class="btn btn-blue" href="mailto:doctortranslatorai@gmail.com?subject=Pedido%20de%20piloto%20gratuito%20—%20Doctor%20Translator%20AI">
-      Pedir piloto gratuito
-    </a>
+    document.querySelectorAll('.nav a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.querySelectorAll('.nav a').forEach(a => a.classList.remove('active'));
+        link.classList.add('active');
+      });
+    });
 
-    <p><strong>doctortranslatorai@gmail.com</strong></p>
-  </div>
-</section>
-
-<footer>
-  Doctor Translator AI — Pedro Figueiredo — Portugal — doctortranslatorai@gmail.com
-</footer>
-
+    document.getElementById('meetingModal').addEventListener('click', e => {
+      if(e.target.id === 'meetingModal') closeModal();
+    });
+  </script>
 </body>
 </html>

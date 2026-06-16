@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apresentação | Doctor Translator AI</title>
+  <meta name="description" content="Apresentação online do Doctor Translator AI, uma solução de tradução médica em tempo real para clínicas, hospitais, congressos e turismo médico." />
+  <style>
+    :root {
+      --bg: #f4f8ff;
+      --paper: #ffffff;
+      --ink: #0f172a;
+      --muted: #64748b;
+      --soft: #eaf2ff;
+      --line: #d9e6ff;
+      --blue: #155eef;
+      --blue2: #3b82f6;
+      --cyan: #06b6d4;
+      --green: #10b981;
+      --amber: #f59e0b;
+      --red: #ef4444;
+      --dark: #08172f;
+      --radius: 26px;
+      --shadow: 0 22px 55px rgba(15, 23, 42, 0.09);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(21, 94, 239, 0.15), transparent 28%),
+        radial-gradient(circle at 90% 5%, rgba(6, 182, 212, 0.14), transparent 30%),
+        linear-gradient(180deg, #ffffff 0%, var(--bg) 48%, #eef5ff 100%);
+      min-height: 100vh;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .shell {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(255, 255, 255, 0.84);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(217, 230, 255, 0.9);
+    }
+
+    .nav {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 950;
+      letter-spacing: -0.04em;
+      font-size: 22px;
+    }
+
+    .logo {
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      color: white;
+      font-size: 26px;
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      box-shadow: 0 14px 30px rgba(21, 94, 239, 0.24);
+    }
+
+    .tag-ai {
+      display: inline-block;
+      margin-left: 4px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      color: #fff;
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      font-size: 12px;
+      letter-spacing: 0;
+      vertical-align: middle;
+    }
+
+    .navlinks {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    .navlinks a,
+    .btn {
+      border: 1px solid var(--line);
+      background: #fff;
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: 850;
+      font-size: 14px;
+      color: #1e293b;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.04);
+    }
+
+    .btn-primary {
+      border: 0;
+      color: #fff;
+      background: linear-gradient(135deg, var(--blue), var(--blue2));
+      box-shadow: 0 16px 32px rgba(21, 94, 239, 0.24);
+    }
+
+    .hero {
+      padding: 56px 0 34px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .hero-copy {
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid var(--line);
+      border-radius: 36px;
+      padding: 40px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-copy::after {
+      content: "";
+      position: absolute;
+      right: -110px;
+      top: -120px;
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(21, 94, 239, 0.14), transparent 68%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid #cfe0ff;
+      background: #eef5ff;
+      color: var(--blue);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-weight: 950;
+      font-size: 13px;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(38px, 5.4vw, 68px);
+      line-height: 0.93;
+      letter-spacing: -0.075em;
+    }
+
+    .lead {
+      margin: 20px 0 0;
+      color: #475569;
+      font-size: 19px;
+      line-height: 1.65;
+      max-width: 760px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+
+    .hero-actions .btn {
+      padding: 14px 18px;
+      font-size: 15px;
+    }
+
+    .deck {
+      background: #08172f;
+      color: #fff;
+      border-radius: 36px;
+      padding: 28px;
+      box-shadow: 0 25px 60px rgba(8, 23, 47, 0.24);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .deck::before {
+      content: "";
+      position: absolute;
+      right: -110px;
+      top: -110px;
+      width: 310px;
+      height: 310px;
+      background: radial-gradient(circle, rgba(6, 182, 212, 0.42), transparent 65%);
+      border-radius: 50%;
+    }
+
+    .deck-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .slide-card {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 26px;
+      padding: 20px;
+      margin-top: 16px;
+    }
+
+    .slide-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #dbeafe;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .slide-title {
+      margin: 0;
+      font-size: 28px;
+      letter-spacing: -0.05em;
+    }
+
+    .translation-demo {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .bubble {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 18px;
+      padding: 14px;
+    }
+
+    .bubble small {
+      display: block;
+      color: #93c5fd;
+      font-weight: 950;
+      margin-bottom: 6px;
+    }
+
+    .bubble p {
+      margin: 0;
+      color: #f8fafc;
+      line-height: 1.45;
+    }
+
+    .section {
+      padding: 30px 0;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: end;
+      margin-bottom: 18px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(27px, 3.4vw, 42px);
+      letter-spacing: -0.06em;
+      line-height: 1;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      font-weight: 650;
+      line-height: 1.55;
+      max-width: 570px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.92);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: 0 15px 36px rgba(15, 23, 42, 0.06);
+    }
+
+    .icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: #eef5ff;
+      color: var(--blue);
+      font-size: 23px;
+      margin-bottom: 16px;
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 20px;
+      letter-spacing: -0.035em;
+    }
+
+    .card p,
+    .card li {
+      color: #475569;
+      font-weight: 620;
+      line-height: 1.58;
+    }
+
+    .card p {
+      margin: 0;
+    }
+
+    .clean {
+      padding-left: 18px;
+      margin: 12px 0 0;
+    }
+
+    .problem {
+      background: linear-gradient(135deg, #ffffff, #f8fbff);
+      border: 1px solid var(--line);
+      border-radius: 34px;
+      padding: 26px;
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .quote {
+      background: var(--dark);
+      color: #fff;
+      border-radius: 28px;
+      padding: 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 270px;
+    }
+
+    .quote strong {
+      font-size: 34px;
+      line-height: 1;
+      letter-spacing: -0.06em;
+    }
+
+    .quote p {
+      color: #cbd5e1;
+      line-height: 1.6;
+      font-weight: 650;
+    }
+
+    .problem-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .problem-item {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 22px;
+      padding: 16px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .problem-item span {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      color: white;
+      font-weight: 950;
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+    }
+
+    .problem-item h3 {
+      margin: 0 0 4px;
+      font-size: 17px;
+    }
+
+    .problem-item p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.48;
+      font-weight: 620;
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .step {
+      position: relative;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 20px;
+      box-shadow: 0 12px 32px rgba(15, 23, 42, 0.055);
+    }
+
+    .step-number {
+      width: 38px;
+      height: 38px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      color: white;
+      font-weight: 950;
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      margin-bottom: 14px;
+    }
+
+    .step h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      letter-spacing: -0.035em;
+    }
+
+    .step p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.52;
+      font-weight: 620;
+    }
+
+    .table-card {
+      overflow: hidden;
+      padding: 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: 16px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+
+    th {
+      background: #eef5ff;
+      color: #155eef;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    td {
+      color: #475569;
+      font-weight: 620;
+      line-height: 1.5;
+    }
+
+    td strong {
+      color: var(--ink);
+    }
+
+    .timeline {
+      display: grid;
+      gap: 12px;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 14px;
+      align-items: start;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 16px;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.05);
+    }
+
+    .timeline-item time {
+      font-weight: 950;
+      color: var(--blue);
+      background: #eef5ff;
+      border-radius: 999px;
+      padding: 8px 10px;
+      text-align: center;
+      font-size: 13px;
+    }
+
+    .timeline-item h3 {
+      margin: 0 0 5px;
+      font-size: 18px;
+      letter-spacing: -0.035em;
+    }
+
+    .timeline-item p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5;
+      font-weight: 620;
+    }
+
+    .warning {
+      border: 1px solid #fed7aa;
+      background: #fff7ed;
+      border-radius: 24px;
+      padding: 20px;
+      color: #9a3412;
+      font-weight: 700;
+      line-height: 1.58;
+    }
+
+    .cta {
+      margin: 36px 0 58px;
+      background: linear-gradient(135deg, #0b1b3a, #155eef);
+      color: white;
+      border-radius: 36px;
+      padding: 36px;
+      box-shadow: 0 26px 60px rgba(21, 94, 239, 0.26);
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .cta h2 {
+      margin: 0;
+      font-size: clamp(30px, 4.4vw, 48px);
+      line-height: 1;
+      letter-spacing: -0.07em;
+    }
+
+    .cta p {
+      color: #dbeafe;
+      line-height: 1.6;
+      font-weight: 650;
+      margin: 14px 0 0;
+    }
+
+    .cta-actions {
+      display: grid;
+      gap: 12px;
+    }
+
+    .cta-actions a {
+      text-align: center;
+      border-radius: 18px;
+      padding: 15px 18px;
+      font-weight: 950;
+      background: #fff;
+      color: #0f172a;
+    }
+
+    .cta-actions a.secondary {
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.18);
+    }
+
+    .footer {
+      padding: 28px 0 46px;
+      text-align: center;
+      color: var(--muted);
+      font-weight: 650;
+    }
+
+    @media print {
+      .topbar,
+      .hero-actions,
+      .cta,
+      .footer {
+        display: none;
+      }
+
+      body {
+        background: white;
+      }
+
+      .card,
+      .hero-copy,
+      .deck,
+      .problem,
+      .step,
+      .timeline-item {
+        box-shadow: none;
+      }
+
+      .section {
+        break-inside: avoid;
+      }
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .grid-3,
+      .grid-2,
+      .problem,
+      .flow,
+      .cta {
+        grid-template-columns: 1fr;
+      }
+
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 14px 0;
+      }
+
+      .navlinks {
+        justify-content: flex-start;
+      }
+
+      .hero-copy,
+      .deck,
+      .cta {
+        border-radius: 28px;
+        padding: 24px;
+      }
+
+      .section-head {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .timeline-item {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell nav">
+      <a class="brand" href="index.html" aria-label="Doctor Translator AI">
+        <span class="logo">+</span>
+        <span>Doctor<br>Translator <span class="tag-ai">AI</span></span>
+      </a>
+
+      <nav class="navlinks" aria-label="Navegação">
+        <a href="index.html">Protótipo</a>
+        <a href="reuniao.html">Reunião</a>
+        <a href="#problema">Problema</a>
+        <a href="#solucao">Solução</a>
+        <a href="#piloto">Piloto</a>
+        <a class="btn btn-primary" href="reuniao.html">Marcar demonstração</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="shell hero-grid">
+        <article class="hero-copy">
+          <div class="eyebrow">Apresentação online · Dossiê rápido</div>
+          <h1>Tradução médica em tempo real para contextos de saúde.</h1>
+          <p class="lead">
+            O Doctor Translator AI é um conceito/protótipo de solução para apoiar a comunicação
+            entre profissionais de saúde e pacientes de diferentes línguas, com foco em consultas,
+            telemedicina, congressos médicos, clínicas internacionais e turismo médico.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="reuniao.html">Marcar demonstração</a>
+            <a class="btn" href="index.html">Ver rede profissional</a>
+            <a class="btn" href="#" onclick="window.print(); return false;">Guardar como PDF</a>
+          </div>
+        </article>
+
+        <aside class="deck">
+          <div class="deck-inner">
+            <span class="pill">DEMO VISUAL · NÃO É PRODUTO CLÍNICO FINAL</span>
+            <div class="slide-card">
+              <div class="slide-top">
+                <h2 class="slide-title">Simulação de tradução</h2>
+                <span class="pill">Tempo real</span>
+              </div>
+              <div class="translation-demo">
+                <div class="bubble">
+                  <small>Médico · Português</small>
+                  <p>Tem alergia a algum medicamento?</p>
+                </div>
+                <div class="bubble">
+                  <small>Doctor Translator AI · Inglês</small>
+                  <p>Are you allergic to any medication?</p>
+                </div>
+                <div class="bubble">
+                  <small>Paciente · Inglês</small>
+                  <p>Yes, I had a reaction to penicillin.</p>
+                </div>
+                <div class="bubble">
+                  <small>Doctor Translator AI · Português</small>
+                  <p>Sim, teve uma reação à penicilina.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="problema">
+      <div class="shell">
+        <div class="section-head">
+          <h2>O problema</h2>
+          <p>A barreira linguística em saúde pode criar atrasos, mal-entendidos e insegurança na comunicação entre paciente e profissional.</p>
+        </div>
+
+        <div class="problem">
+          <div class="quote">
+            <strong>Quando a língua falha, a consulta perde clareza.</strong>
+            <p>
+              O objetivo não é substituir o médico, o intérprete certificado ou a validação humana.
+              O objetivo é criar uma camada de apoio rápido, contextual e supervisionado.
+            </p>
+          </div>
+
+          <div class="problem-list">
+            <div class="problem-item">
+              <span>1</span>
+              <div>
+                <h3>Pacientes internacionais</h3>
+                <p>Clínicas e hospitais recebem pacientes que nem sempre dominam português ou inglês.</p>
+              </div>
+            </div>
+
+            <div class="problem-item">
+              <span>2</span>
+              <div>
+                <h3>Termos médicos sensíveis</h3>
+                <p>Uma tradução literal pode não captar contexto clínico, sintomas, medicação ou historial.</p>
+              </div>
+            </div>
+
+            <div class="problem-item">
+              <span>3</span>
+              <div>
+                <h3>Congressos e eventos</h3>
+                <p>Profissionais de várias línguas precisam de acompanhar apresentações e perguntas em tempo real.</p>
+              </div>
+            </div>
+
+            <div class="problem-item">
+              <span>4</span>
+              <div>
+                <h3>Telemedicina e turismo médico</h3>
+                <p>Atendimento remoto e pacientes estrangeiros exigem comunicação clara, rápida e rastreável.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="solucao">
+      <div class="shell">
+        <div class="section-head">
+          <h2>A solução proposta</h2>
+          <p>Uma plataforma de apoio à tradução médica em tempo real, pensada para validação com profissionais antes de qualquer uso clínico alargado.</p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card">
+            <div class="icon">🎙️</div>
+            <h3>Captação de fala</h3>
+            <p>O sistema recebe a fala do médico ou paciente e prepara a frase para tradução contextual.</p>
+          </article>
+
+          <article class="card">
+            <div class="icon">🧠</div>
+            <h3>Contexto médico</h3>
+            <p>A tradução é orientada para linguagem de saúde, sintomas, medicação e comunicação clínica.</p>
+          </article>
+
+          <article class="card">
+            <div class="icon">🌍</div>
+            <h3>Resposta traduzida</h3>
+            <p>A mensagem é devolvida no idioma pretendido, de forma simples e supervisionável.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <h2>Como funcionaria</h2>
+          <p>Fluxo pensado para uma demonstração controlada, sem prometer autonomia clínica.</p>
+        </div>
+
+        <div class="flow">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>O profissional fala</h3>
+            <p>O médico ou equipa coloca uma pergunta, instrução ou explicação clínica.</p>
+          </div>
+
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>A IA interpreta</h3>
+            <p>O sistema identifica idioma, intenção da frase e termos sensíveis.</p>
+          </div>
+
+          <div class="step">
+            <div class="step-number">3</div>
+            <h3>Tradução aparece</h3>
+            <p>O texto traduzido surge no ecrã e pode ser lido ou reproduzido por voz.</p>
+          </div>
+
+          <div class="step">
+            <div class="step-number">4</div>
+            <h3>Profissional confirma</h3>
+            <p>O profissional mantém o controlo da comunicação e valida o que é transmitido.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <h2>Público-alvo inicial</h2>
+          <p>A primeira fase deve focar entidades onde a barreira linguística já é um problema visível.</p>
+        </div>
+
+        <div class="card table-card">
+          <table>
+            <thead>
+              <tr>
+                <th>Segmento</th>
+                <th>Dor principal</th>
+                <th>Possível uso</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Clínicas privadas</strong></td>
+                <td>Pacientes estrangeiros e atendimento internacional.</td>
+                <td>Receção, consultas, explicação de procedimentos e acompanhamento.</td>
+              </tr>
+              <tr>
+                <td><strong>Hospitais</strong></td>
+                <td>Comunicação rápida em contextos multilingues.</td>
+                <td>Apoio em triagem, informação geral e comunicação não crítica.</td>
+              </tr>
+              <tr>
+                <td><strong>Congressos médicos</strong></td>
+                <td>Palestras, perguntas e networking internacional.</td>
+                <td>Tradução de sessões, perguntas e conversas profissionais.</td>
+              </tr>
+              <tr>
+                <td><strong>Turismo médico</strong></td>
+                <td>Pacientes que viajam para tratamentos.</td>
+                <td>Pré-consulta, acompanhamento e informação pós-consulta.</td>
+              </tr>
+              <tr>
+                <td><strong>Telemedicina</strong></td>
+                <td>Consultas remotas com pacientes de vários países.</td>
+                <td>Legenda, transcrição e tradução em tempo real.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="piloto">
+      <div class="shell">
+        <div class="section-head">
+          <h2>Proposta de piloto</h2>
+          <p>Em vez de vender logo, o melhor caminho é validar com uma demonstração controlada e recolher feedback.</p>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <time>Fase 1</time>
+            <div>
+              <h3>Reuniões de validação</h3>
+              <p>Conversas com médicos, clínicas, empresas e organizadores de congressos para perceber necessidades reais.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <time>Fase 2</time>
+            <div>
+              <h3>Demonstração do protótipo</h3>
+              <p>Mostrar a interface, simular tradução e recolher críticas sobre utilidade, riscos e integrações.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <time>Fase 3</time>
+            <div>
+              <h3>Teste controlado</h3>
+              <p>Aplicar num cenário de baixo risco, com supervisão humana e sem substituir qualquer decisão clínica.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <time>Fase 4</time>
+            <div>
+              <h3>Relatório de feedback</h3>
+              <p>Reunir conclusões, prioridades de línguas, funcionalidades essenciais e potenciais parceiros.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell grid-2">
+        <article class="card">
+          <div class="icon">🔒</div>
+          <h3>Privacidade e segurança</h3>
+          <p>
+            Qualquer evolução real deve considerar consentimento, proteção de dados, segurança, registo de uso,
+            minimização de dados e conformidade aplicável.
+          </p>
+          <ul class="clean">
+            <li>Evitar recolha desnecessária de dados sensíveis.</li>
+            <li>Separar demonstração de uso clínico real.</li>
+            <li>Definir claramente limites e responsabilidade.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <div class="icon">⚕️</div>
+          <h3>Limites importantes</h3>
+          <p>
+            A solução deve ser apresentada como apoio à comunicação, não como diagnóstico, não como decisão médica
+            e não como substituto de intérpretes certificados quando estes forem necessários.
+          </p>
+          <ul class="clean">
+            <li>O médico mantém sempre o controlo.</li>
+            <li>Casos críticos exigem validação humana.</li>
+            <li>A precisão deve ser testada antes de uso real.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="warning">
+          Nota profissional: esta apresentação descreve um protótipo/conceito em fase de validação. Antes de qualquer implementação clínica real, é necessário validar segurança, privacidade, precisão, responsabilidade legal e enquadramento regulatório.
+        </div>
+      </div>
+    </section>
+
+    <section class="shell cta">
+      <div>
+        <h2>Próximo passo: uma reunião curta de validação.</h2>
+        <p>
+          O objetivo da primeira conversa é simples: perceber se a ideia resolve uma dor real,
+          quais seriam os melhores casos de uso e se faz sentido avançar para um teste controlado.
+        </p>
+      </div>
+
+      <div class="cta-actions">
+        <a href="reuniao.html">Abrir página de reunião</a>
+        <a class="secondary" href="index.html">Ver protótipo da rede médica</a>
+        <a class="secondary" href="#" onclick="window.print(); return false;">Guardar esta apresentação em PDF</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="shell">
+      Doctor Translator AI · Real-Time Medical Translation · Apresentação online de validação
+    </div>
+  </footer>
+</body>
+</html>

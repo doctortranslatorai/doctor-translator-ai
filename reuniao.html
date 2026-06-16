@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reunião | Doctor Translator AI</title>
+  <meta name="description" content="Página de reunião do Doctor Translator AI: demonstração, proposta de valor, casos de uso e próximos passos para clínicas, hospitais e congressos." />
+  <style>
+    :root {
+      --bg: #f5f8ff;
+      --card: #ffffff;
+      --ink: #0f172a;
+      --muted: #64748b;
+      --line: #dbe7ff;
+      --blue: #155eef;
+      --blue2: #3b82f6;
+      --cyan: #06b6d4;
+      --green: #10b981;
+      --orange: #f97316;
+      --red: #ef4444;
+      --shadow: 0 18px 45px rgba(15, 23, 42, 0.09);
+      --radius: 24px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 15% 10%, rgba(59, 130, 246, 0.14), transparent 28%),
+        radial-gradient(circle at 90% 0%, rgba(6, 182, 212, 0.16), transparent 26%),
+        linear-gradient(180deg, #ffffff 0%, var(--bg) 42%, #edf5ff 100%);
+      min-height: 100vh;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .shell {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(18px);
+      background: rgba(255, 255, 255, 0.82);
+      border-bottom: 1px solid rgba(219, 231, 255, 0.9);
+    }
+
+    .nav {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      font-size: 22px;
+    }
+
+    .logo {
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      color: white;
+      font-size: 25px;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      box-shadow: 0 12px 28px rgba(21, 94, 239, 0.26);
+    }
+
+    .ai {
+      font-size: 12px;
+      letter-spacing: 0;
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      color: #fff;
+      padding: 3px 7px;
+      border-radius: 999px;
+      margin-left: 4px;
+      vertical-align: middle;
+    }
+
+    .navlinks {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .navlinks a,
+    .btn {
+      border: 1px solid var(--line);
+      background: #fff;
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 14px;
+      color: #1e293b;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.04);
+    }
+
+    .btn-primary {
+      border: 0;
+      color: #fff;
+      background: linear-gradient(135deg, var(--blue), var(--blue2));
+      box-shadow: 0 15px 28px rgba(21, 94, 239, 0.24);
+    }
+
+    .hero {
+      padding: 54px 0 30px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .hero-card {
+      background: rgba(255, 255, 255, 0.86);
+      border: 1px solid var(--line);
+      border-radius: 34px;
+      padding: 38px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      width: 280px;
+      height: 280px;
+      right: -90px;
+      top: -90px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(21, 94, 239, 0.16), transparent 68%);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      padding: 8px 12px;
+      border: 1px solid #cfe0ff;
+      color: #155eef;
+      background: #eef5ff;
+      border-radius: 999px;
+      font-weight: 900;
+      font-size: 13px;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(36px, 5vw, 64px);
+      line-height: 0.95;
+      letter-spacing: -0.07em;
+    }
+
+    .lead {
+      margin: 20px 0 0;
+      color: #475569;
+      font-size: 19px;
+      line-height: 1.65;
+      max-width: 720px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 26px;
+    }
+
+    .actions .btn {
+      padding: 14px 18px;
+      font-size: 15px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .stat {
+      background: #f8fbff;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 16px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 24px;
+      letter-spacing: -0.04em;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    .meeting-panel {
+      background: #08172f;
+      color: #fff;
+      border-radius: 34px;
+      padding: 28px;
+      box-shadow: 0 24px 50px rgba(8, 23, 47, 0.24);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .meeting-panel::before {
+      content: "";
+      position: absolute;
+      inset: -40% -20% auto auto;
+      width: 340px;
+      height: 340px;
+      background: radial-gradient(circle, rgba(6, 182, 212, 0.38), transparent 62%);
+      border-radius: 999px;
+    }
+
+    .panel-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .screen {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 24px;
+      padding: 18px;
+      margin-top: 18px;
+    }
+
+    .screen-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .live {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      background: rgba(239, 68, 68, 0.18);
+      color: #fecaca;
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      border-radius: 999px;
+      padding: 7px 10px;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      background: #ef4444;
+      border-radius: 50%;
+      box-shadow: 0 0 0 6px rgba(239, 68, 68, 0.14);
+    }
+
+    .translation-box {
+      display: grid;
+      gap: 12px;
+    }
+
+    .bubble {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 18px;
+      padding: 14px;
+    }
+
+    .bubble small {
+      display: block;
+      color: #93c5fd;
+      font-weight: 900;
+      margin-bottom: 6px;
+    }
+
+    .bubble p {
+      margin: 0;
+      line-height: 1.45;
+      color: #f8fafc;
+    }
+
+    .section {
+      padding: 28px 0;
+    }
+
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: end;
+      margin-bottom: 18px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: clamp(26px, 3vw, 38px);
+      letter-spacing: -0.05em;
+    }
+
+    .section-title p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 560px;
+      line-height: 1.55;
+      font-weight: 650;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: 0 14px 35px rgba(15, 23, 42, 0.06);
+    }
+
+    .icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: #eef5ff;
+      color: var(--blue);
+      font-size: 22px;
+      margin-bottom: 16px;
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 19px;
+      letter-spacing: -0.03em;
+    }
+
+    .card p,
+    .card li {
+      color: #475569;
+      line-height: 1.58;
+      font-weight: 600;
+    }
+
+    .card p {
+      margin: 0;
+    }
+
+    ul.clean {
+      padding-left: 18px;
+      margin: 12px 0 0;
+    }
+
+    .agenda {
+      counter-reset: item;
+      display: grid;
+      gap: 12px;
+    }
+
+    .agenda-item {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 14px;
+      align-items: center;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 16px;
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.05);
+    }
+
+    .agenda-item::before {
+      counter-increment: item;
+      content: counter(item);
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      color: #fff;
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      font-weight: 900;
+    }
+
+    .agenda-item h3 {
+      margin: 0 0 4px;
+      font-size: 17px;
+    }
+
+    .agenda-item p {
+      margin: 0;
+      color: var(--muted);
+      font-weight: 650;
+      line-height: 1.45;
+    }
+
+    .time {
+      font-weight: 900;
+      color: #155eef;
+      background: #eef5ff;
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .cta {
+      margin: 36px 0 56px;
+      background: linear-gradient(135deg, #0b1b3a, #155eef);
+      color: white;
+      border-radius: 34px;
+      padding: 34px;
+      box-shadow: 0 24px 55px rgba(21, 94, 239, 0.26);
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 22px;
+      align-items: center;
+    }
+
+    .cta h2 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1;
+      letter-spacing: -0.06em;
+    }
+
+    .cta p {
+      color: #dbeafe;
+      line-height: 1.6;
+      font-weight: 650;
+      margin: 14px 0 0;
+    }
+
+    .cta-form {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 24px;
+      padding: 18px;
+    }
+
+    .field {
+      display: grid;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    label {
+      font-size: 13px;
+      font-weight: 900;
+      color: #dbeafe;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.95);
+      color: #0f172a;
+      border-radius: 14px;
+      padding: 12px 13px;
+      font: inherit;
+      outline: none;
+    }
+
+    textarea {
+      min-height: 86px;
+      resize: vertical;
+    }
+
+    .submit {
+      width: 100%;
+      border: 0;
+      border-radius: 16px;
+      padding: 13px 16px;
+      font-weight: 900;
+      color: #0f172a;
+      background: #fff;
+      cursor: pointer;
+    }
+
+    .note {
+      margin-top: 10px;
+      font-size: 12px;
+      color: #bfdbfe;
+      line-height: 1.45;
+    }
+
+    .footer {
+      padding: 28px 0 44px;
+      color: var(--muted);
+      font-weight: 650;
+      text-align: center;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      transform: translateX(-50%) translateY(20px);
+      opacity: 0;
+      pointer-events: none;
+      background: #0f172a;
+      color: white;
+      border-radius: 999px;
+      padding: 12px 18px;
+      box-shadow: 0 18px 38px rgba(15, 23, 42, 0.22);
+      transition: 0.25s ease;
+      font-weight: 800;
+      z-index: 100;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    @media (max-width: 940px) {
+      .hero-grid,
+      .grid-3,
+      .grid-2,
+      .cta {
+        grid-template-columns: 1fr;
+      }
+
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 14px 0;
+      }
+
+      .navlinks {
+        justify-content: flex-start;
+      }
+
+      .hero-card,
+      .meeting-panel,
+      .cta {
+        border-radius: 26px;
+        padding: 24px;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .section-title {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .agenda-item {
+        grid-template-columns: auto 1fr;
+      }
+
+      .time {
+        grid-column: 2;
+        width: fit-content;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell nav">
+      <a class="brand" href="index.html" aria-label="Voltar ao início">
+        <span class="logo">+</span>
+        <span>Doctor<br>Translator <span class="ai">AI</span></span>
+      </a>
+
+      <nav class="navlinks" aria-label="Navegação principal">
+        <a href="index.html">Rede social</a>
+        <a href="apresentacao.pdf" target="_blank">Descarregar apresentação</a>
+        <a href="#agenda">Agenda</a>
+        <a class="btn btn-primary" href="#marcar">Marcar reunião</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="shell hero-grid">
+        <article class="hero-card">
+          <div class="eyebrow">Página de reunião · Demonstração profissional</div>
+          <h1>Uma reunião clara para validar o Doctor Translator AI.</h1>
+          <p class="lead">
+            Esta página foi criada para apresentar o conceito a clínicas, hospitais, congressos,
+            empresas de saúde e profissionais médicos. O objetivo é mostrar, de forma simples,
+            como a tradução médica em tempo real pode reduzir barreiras linguísticas em consultas,
+            eventos e atendimento internacional.
+          </p>
+
+          <div class="actions">
+            <a class="btn btn-primary" href="#marcar">Marcar demonstração</a>
+            <a class="btn" href="apresentacao.pdf" target="_blank">Ver apresentação PDF</a>
+            <a class="btn" href="index.html">Abrir protótipo social</a>
+          </div>
+
+          <div class="stats" aria-label="Indicadores de valor">
+            <div class="stat">
+              <strong>Tempo real</strong>
+              <span>tradução durante consulta ou evento</span>
+            </div>
+            <div class="stat">
+              <strong>Saúde</strong>
+              <span>vocabulário médico e contexto clínico</span>
+            </div>
+            <div class="stat">
+              <strong>B2B</strong>
+              <span>clínicas, congressos e turismo médico</span>
+            </div>
+          </div>
+        </article>
+
+        <aside class="meeting-panel">
+          <div class="panel-inner">
+            <div class="eyebrow" style="background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.18);color:#bfdbfe;">Simulação da demo</div>
+            <h2 style="margin:0;font-size:32px;letter-spacing:-.05em;">Consulta multilingue com apoio de IA</h2>
+            <p style="color:#cbd5e1;line-height:1.6;font-weight:650;">
+              Demonstração visual de como o sistema poderá apoiar a comunicação entre médico e paciente,
+              sem substituir o profissional de saúde.
+            </p>
+
+            <div class="screen">
+              <div class="screen-head">
+                <strong>Tradução clínica em direto</strong>
+                <span class="live"><span class="dot"></span> AO VIVO</span>
+              </div>
+
+              <div class="translation-box">
+                <div class="bubble">
+                  <small>Médico · Português</small>
+                  <p>Há quanto tempo sente dor no peito e falta de ar?</p>
+                </div>
+                <div class="bubble">
+                  <small>Paciente · Inglês</small>
+                  <p>For about two days. It gets worse when I walk.</p>
+                </div>
+                <div class="bubble">
+                  <small>Doctor Translator AI · PT</small>
+                  <p>Há cerca de dois dias. A dor piora quando caminha.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="agenda">
+      <div class="shell">
+        <div class="section-title">
+          <h2>Agenda sugerida para a reunião</h2>
+          <p>Estrutura simples para uma primeira conversa de validação, sem complicar nem parecer venda agressiva.</p>
+        </div>
+
+        <div class="agenda">
+          <div class="agenda-item">
+            <div>
+              <h3>Apresentação rápida do problema</h3>
+              <p>Barreiras linguísticas em consultas, congressos médicos, turismo de saúde e atendimento internacional.</p>
+            </div>
+            <span class="time">3 min</span>
+          </div>
+
+          <div class="agenda-item">
+            <div>
+              <h3>Demonstração visual do protótipo</h3>
+              <p>Mostrar a rede médica, a zona de tradução em direto e a possibilidade de integração em contexto real.</p>
+            </div>
+            <span class="time">7 min</span>
+          </div>
+
+          <div class="agenda-item">
+            <div>
+              <h3>Discussão com o profissional</h3>
+              <p>Recolher feedback sobre necessidades, riscos, privacidade, línguas prioritárias e casos de uso.</p>
+            </div>
+            <span class="time">10 min</span>
+          </div>
+
+          <div class="agenda-item">
+            <div>
+              <h3>Próximo passo</h3>
+              <p>Definir se faz sentido avançar para teste controlado, parceria, piloto em congresso ou demonstração interna.</p>
+            </div>
+            <span class="time">5 min</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-title">
+          <h2>O que será apresentado</h2>
+          <p>Uma visão curta, prática e profissional, pensada para criar confiança em vez de prometer milagres.</p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card">
+            <div class="icon">🩺</div>
+            <h3>Casos de uso médicos</h3>
+            <p>Consultas com pacientes estrangeiros, triagem, receção clínica, telemedicina e apoio em congressos internacionais.</p>
+          </article>
+
+          <article class="card">
+            <div class="icon">🌐</div>
+            <h3>Tradução em tempo real</h3>
+            <p>Conceito de tradução contextualizada com foco em clareza, segurança comunicacional e vocabulário médico.</p>
+          </article>
+
+          <article class="card">
+            <div class="icon">🤝</div>
+            <h3>Validação profissional</h3>
+            <p>Recolha de feedback de médicos, clínicas e empresas para perceber se o produto resolve uma dor real.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell grid-2">
+        <article class="card">
+          <div class="icon">✅</div>
+          <h3>Mensagem principal para a reunião</h3>
+          <p>
+            “Não venho vender um produto fechado. Venho validar uma solução e ouvir a opinião de quem trabalha no terreno.”
+          </p>
+          <ul class="clean">
+            <li>Mostra humildade e profissionalismo.</li>
+            <li>Abre espaço para feedback verdadeiro.</li>
+            <li>Evita parecer promessa exagerada de IA.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <div class="icon">🔒</div>
+          <h3>Pontos sensíveis a mencionar</h3>
+          <p>
+            A solução deve ser pensada com cuidado em privacidade, consentimento, proteção de dados e validação clínica.
+          </p>
+          <ul class="clean">
+            <li>A IA apoia a comunicação, não substitui decisão médica.</li>
+            <li>O profissional mantém sempre o controlo.</li>
+            <li>Os testes iniciais devem ser controlados e supervisionados.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="shell cta" id="marcar">
+      <div>
+        <h2>Marcar uma conversa de validação</h2>
+        <p>
+          Esta área serve como formulário visual para o protótipo. Numa versão real, pode ser ligada a email,
+          Google Forms, Tally, Calendly ou Supabase.
+        </p>
+      </div>
+
+      <form class="cta-form" onsubmit="sendDemoRequest(event)">
+        <div class="field">
+          <label for="name">Nome</label>
+          <input id="name" name="name" placeholder="Nome do profissional ou entidade" required />
+        </div>
+
+        <div class="field">
+          <label for="type">Tipo de entidade</label>
+          <select id="type" name="type">
+            <option>Clínica / Hospital</option>
+            <option>Médico / Profissional de saúde</option>
+            <option>Congresso / Evento médico</option>
+            <option>Empresa de turismo médico</option>
+            <option>Outro</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="message">Interesse principal</label>
+          <textarea id="message" name="message" placeholder="Ex.: testar tradução em direto num congresso, consulta internacional, telemedicina..."></textarea>
+        </div>
+
+        <button class="submit" type="submit">Preparar pedido de reunião</button>
+        <div class="note">
+          Ao clicar, será preparado um email. Podes trocar o endereço no código quando quiseres.
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="shell">
+      Doctor Translator AI · Real-Time Medical Translation · Protótipo de validação profissional
+    </div>
+  </footer>
+
+  <div class="toast" id="toast">Pedido de reunião preparado.</div>
+
+  <script>
+    function sendDemoRequest(event) {
+      event.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const type = document.getElementById("type").value;
+      const message = document.getElementById("message").value.trim();
+
+      const subject = encodeURIComponent("Pedido de reunião - Doctor Translator AI");
+      const body = encodeURIComponent(
+        "Olá,\n\nGostaria de marcar uma reunião sobre o Doctor Translator AI.\n\n" +
+        "Nome / Entidade: " + name + "\n" +
+        "Tipo: " + type + "\n" +
+        "Interesse principal: " + (message || "A definir em reunião") + "\n\n" +
+        "Obrigado."
+      );
+
+      const email = "pmguelpt@gmail.com";
+      window.location.href = "mailto:" + email + "?subject=" + subject + "&body=" + body;
+
+      const toast = document.getElementById("toast");
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 2600);
+    }
+  </script>
+</body>
+</html>
